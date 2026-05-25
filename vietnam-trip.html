@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#020617">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Vietnam 14j">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23DA251D'/%3E%3Cpolygon fill='%23FFFF00' points='50,15 60,42 88,42 65,58 75,85 50,68 25,85 35,58 12,42 40,42'/%3E%3C/svg%3E">
+<title>Vietnam 14j • 17-31 août</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  --bg:#020617;--bg2:#0f172a;--card:#1e293b;--card2:#334155;
+  --border:#334155;--border2:#475569;
+  --text:#f1f5f9;--text2:#94a3b8;--text3:#64748b;
+  --emerald:#34d399;--amber:#fbbf24;--orange:#fb923c;
+  --blue:#60a5fa;--rose:#fb7185;--purple:#c084fc;
+  --green:#22c55e;--yellow:#eab308;--pink:#ec4899;
+}
+html,body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:14px;line-height:1.5;min-height:100vh;overscroll-behavior:none}
+body{padding-bottom:env(safe-area-inset-bottom);background:linear-gradient(180deg,#020617 0%,#0f172a 100%);background-attachment:fixed}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+a{color:var(--blue);text-decoration:none}
+
+/* Header */
+.header{position:sticky;top:0;z-index:30;background:rgba(2,6,23,.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding-top:env(safe-area-inset-top)}
+.header-top{padding:12px 16px 8px;display:flex;justify-content:space-between;align-items:center}
+.header-title{font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px}
+.header-date{font-size:10px;color:var(--text3);margin-top:2px}
+.header-stats{text-align:right}
+.header-counter{font-size:12px;font-family:monospace;color:var(--emerald);font-weight:600}
+.header-label{font-size:9px;color:var(--text3)}
+.progress-bar{height:3px;background:var(--card);margin:0 16px;border-radius:2px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--emerald),var(--amber));transition:width .5s ease}
+
+/* Day tabs */
+.tabs{overflow-x:auto;padding:8px 12px 10px;display:flex;gap:6px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;padding:7px 12px;border-radius:10px;font-size:12px;font-weight:700;background:var(--card);color:var(--text2);transition:all .2s;white-space:nowrap;border:1px solid transparent}
+.tab.done{background:rgba(16,185,129,.12);color:var(--emerald);border-color:rgba(16,185,129,.3)}
+.tab.active{background:var(--amber);color:#020617;box-shadow:0 4px 12px rgba(251,191,36,.3)}
+.tab-count{font-size:9px;opacity:.7;margin-left:4px;font-weight:500}
+
+/* Content */
+.content{padding:16px 16px 80px}
+.day-header{padding-bottom:14px;margin-bottom:18px;border-bottom:1px solid var(--border)}
+.day-title{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+.day-city{font-size:20px;font-weight:700;color:var(--text)}
+.day-date{font-size:12px;color:var(--text3)}
+.day-meta{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--text2)}
+.transport{margin-top:10px;padding:8px 12px;background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.25);border-radius:8px;font-size:11px;color:#93c5fd;display:flex;align-items:center;gap:6px}
+
+/* Sections */
+.section{margin-bottom:22px}
+.section-header{display:flex;align-items:center;gap:8px;margin-bottom:8px;padding:0 4px}
+.section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+.section-icon{font-size:14px}
+.activities .section-title{color:var(--emerald)}
+.food .section-title{color:var(--orange)}
+.shopping .section-title{color:var(--amber)}
+.hotel .section-title{color:var(--blue)}
+.bonus .section-title{color:var(--purple)}
+
+/* Items */
+.items{display:flex;flex-direction:column;gap:8px}
+.item{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px;transition:all .2s}
+.item.done{opacity:.55;background:rgba(30,41,59,.5)}
+.item-row{display:flex;gap:10px;align-items:flex-start}
+.checkbox{flex-shrink:0;width:22px;height:22px;border-radius:50%;border:2px solid var(--text3);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;transition:all .2s;margin-top:1px;background:transparent}
+.checkbox.done{background:var(--emerald);border-color:var(--emerald);color:#020617}
+.item-body{flex:1;min-width:0}
+.item-head{display:flex;justify-content:space-between;gap:8px;align-items:flex-start;margin-bottom:4px;flex-wrap:wrap}
+.item-title{font-size:13.5px;font-weight:600;color:var(--text);line-height:1.35;flex:1;min-width:0}
+.item.done .item-title{text-decoration:line-through;color:var(--text3)}
+.item-tags{display:flex;gap:4px;flex-shrink:0;flex-wrap:wrap}
+.tag{font-size:9.5px;padding:2px 6px;border-radius:8px;font-weight:600;border:1px solid transparent;letter-spacing:.02em}
+
+/* Intensity tags */
+.tag-chill{background:rgba(16,185,129,.15);color:#6ee7b7;border-color:rgba(16,185,129,.3)}
+.tag-moderate{background:rgba(245,158,11,.15);color:#fcd34d;border-color:rgba(245,158,11,.3)}
+.tag-active{background:rgba(249,115,22,.15);color:#fdba74;border-color:rgba(249,115,22,.3)}
+.tag-sport{background:rgba(244,63,94,.15);color:#fda4af;border-color:rgba(244,63,94,.3)}
+
+/* Shopping tags */
+.tag-watch-new{background:rgba(59,130,246,.18);color:#93c5fd}
+.tag-watch-vintage{background:rgba(168,85,247,.18);color:#d8b4fe}
+.tag-gold{background:rgba(234,179,8,.18);color:#fde047}
+.tag-silver{background:rgba(100,116,139,.25);color:#cbd5e1}
+.tag-custom{background:rgba(236,72,153,.18);color:#f9a8d4}
+.tag-pearl{background:rgba(6,182,212,.18);color:#67e8f9}
+.tag-silk{background:rgba(217,70,239,.18);color:#f0abfc}
+.tag-bazar{background:rgba(20,184,166,.18);color:#5eead4}
+.tag-craft{background:rgba(132,204,22,.18);color:#bef264}
+.tag-food-shop{background:rgba(249,115,22,.18);color:#fdba74}
+.tag-textile{background:rgba(99,102,241,.18);color:#a5b4fc}
+.tag-ethnic{background:rgba(132,204,22,.2);color:#bef264}
+
+/* Bonus tags */
+.tag-food{background:rgba(249,115,22,.15);color:#fdba74}
+.tag-location{background:rgba(59,130,246,.15);color:#93c5fd}
+.tag-must{background:rgba(244,63,94,.15);color:#fda4af}
+.tag-hidden{background:rgba(168,85,247,.15);color:#d8b4fe}
+.tag-unique{background:rgba(236,72,153,.15);color:#f9a8d4}
+
+/* Halal */
+.tag-halal{background:rgba(34,197,94,.2);color:#86efac;border-color:rgba(34,197,94,.4)}
+.tag-halal-option{background:rgba(245,158,11,.2);color:#fcd34d;border-color:rgba(245,158,11,.4)}
+.tag-no-halal{background:rgba(244,63,94,.2);color:#fda4af;border-color:rgba(244,63,94,.4)}
+
+.item-desc{font-size:11.5px;color:var(--text2);line-height:1.55;margin-bottom:8px}
+.item-footer{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.maps-link{display:inline-flex;align-items:center;gap:4px;font-size:11px;color:var(--blue);font-weight:500;padding:3px 0}
+.maps-link:active{color:#3b82f6}
+.item-price{font-size:11px;color:var(--amber);font-weight:600;font-family:monospace}
+
+/* Bonus items - smaller, denser */
+.bonus .item{padding:10px 12px;background:rgba(168,85,247,.05);border-color:rgba(168,85,247,.15)}
+.bonus .item-title{font-size:13px}
+.bonus .item-desc{font-size:11px;margin-bottom:6px}
+
+/* Legend */
+.legend{margin-top:20px;padding:14px;background:var(--card);border-radius:10px;border:1px solid var(--border)}
+.legend-title{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);font-weight:700;margin-bottom:10px}
+.legend-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.legend-grid .tag{text-align:center;padding:5px 8px;border-radius:6px}
+
+/* Reset button */
+.reset-btn{position:fixed;bottom:20px;right:16px;padding:10px 14px;background:var(--card);border:1px solid var(--border);border-radius:20px;font-size:11px;color:var(--text2);box-shadow:0 4px 12px rgba(0,0,0,.4);z-index:20;display:flex;align-items:center;gap:6px;font-weight:500}
+.reset-btn:active{background:var(--card2)}
+
+/* Tip box */
+.tip-box{margin-top:16px;padding:10px 12px;background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.2);border-radius:8px;font-size:11px;color:#fcd34d;line-height:1.5}
+.tip-box strong{color:var(--amber)}
+
+@media (min-width:640px){
+  body{font-size:15px}
+  .content{padding:20px 24px 80px}
+  .day-city{font-size:24px}
+}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<button class="reset-btn" onclick="resetProgress()">↻ Reset</button>
+
+<script>
+const TRIP = [
+  {
+    day: 1, date: "Dim 17 août", city: "Hanoi", weather: "32°C • averses possibles",
+    transport: { icon: "✈️", text: "Arrivée vol international, midi/après-midi" },
+    hotel: { name: "Essence Hanoi Hotel & Spa", price: "~50€/nuit", address: "22 Ta Hien, Hoan Kiem, Hanoi" },
+    activities: [
+      { intensity: "chill", title: "Lac Hoan Kiem + Pagode Ngoc Son", desc: "Promenade au cœur du Vieux Quartier. Pagode sur îlot via pont rouge The Huc. Magique au coucher du soleil.", address: "Ho Hoan Kiem, Hanoi", price: "30k VND" },
+      { intensity: "moderate", title: "Vieux Quartier 36 corporations", desc: "Chaque rue = un métier ancien (Hang Bac=argent, Hang Gai=soie, Hang Bong=coton). Perdez-vous-y 2-3h.", address: "Old Quarter, Hoan Kiem, Hanoi" },
+      { intensity: "moderate", title: "Train Street (via café licencié)", desc: "ATTENTION 2026: accès restreint. Réserver via Railway Cafe ou Track 5 Cafe sur Instagram, drink obligatoire ~50k VND. Train passe vers 19h.", address: "Railway Cafe, Tran Phu, Hanoi", price: "Drink ~50k" }
+    ],
+    food: [
+      { halal: true, title: "D'lions Halal Restaurant", desc: "Cuisine halal viet + indienne. Bonne option premier soir, près du lac.", address: "112 Hang Trong, Hoan Kiem, Hanoi", price: "~6€" },
+      { halal: "option", title: "Cha Ca Thang Long", desc: "Poisson au curcuma, recette légendaire depuis 1871. 100% poisson, parfait pour halal-friendly.", address: "19-21-31 Duong Thanh, Hanoi", price: "~10€" },
+      { halal: true, title: "Café Giang - egg coffee", desc: "Inventeur du fameux café à l'œuf depuis 1946. Tout petit, magique. Halal (boisson).", address: "39 Nguyen Huu Huan, Hanoi", price: "~1.50€" }
+    ],
+    shopping: [
+      { type: "watch-vintage", title: "Hong Phuc Watch", desc: "Vintage Seiko/Citizen sérieux. Demandez d'ouvrir le boîtier pour vérifier le mouvement et marquages.", address: "Hong Phuc Watch, Hang Bong street, Hanoi" },
+      { type: "watch-new", title: "Hai Trieu Watch officiel", desc: "Concessionnaire Seiko officiel. Garantie internationale. Prix fixes, pas de marchandage.", address: "Hai Trieu Watch, 7 Dinh Tien Hoang, Hoan Kiem, Hanoi" },
+      { type: "silver", title: "Rue Hang Bac - argenterie historique", desc: "Orfèvres depuis le 13e siècle. Filigrane traditionnel, prix imbattables. Comparez 3-4 boutiques.", address: "Hang Bac street, Hoan Kiem, Hanoi" },
+      { type: "gold", title: "PNJ Hang Trong", desc: "Chaîne nationale fiable. Or 18K et 24K garanti avec certificat. Prix fixes.", address: "PNJ 19 Hang Trong, Hanoi" },
+      { type: "bazar", title: "Marché Dong Xuan", desc: "Plus grand marché couvert de Hanoi. Ambiance locale brute. Textiles, épices, gros.", address: "Cho Dong Xuan, Hanoi" },
+      { type: "textile", title: "Metiseko Hanoi", desc: "Marque franco-vietnamienne. Coton bio et soie imprimés contemporains. 100% original, made in Vietnam, prix corrects.", address: "Metiseko 71 Hang Gai, Hanoi", price: "30-100€/pièce" },
+      { type: "textile", title: "Magonn", desc: "Designer vietnamien contemporain, womenswear. Chemises, robes, accessoires originaux non contrefaits.", address: "Magonn 23B Trang Thi, Hanoi", price: "25-80€" },
+      { type: "textile", title: "Ginkgo T-shirts", desc: "Tees coton qualité, designs originaux Vietnam (calligraphie, Hanoi, motifs). Pas de fausse marque, designs maison.", address: "Ginkgo T-shirts 79 Hang Gai, Hanoi", price: "15-25€" }
+    ],
+    bonus: [
+      { type: "hidden", title: "Note Coffee", desc: "Café couvert de milliers de post-it laissés par les visiteurs. Vue lac Hoan Kiem. Tout petit, en étage.", address: "Note Coffee 64 Luong Van Can, Hanoi" },
+      { type: "must", title: "Hoa Lo Prison Museum (Hanoi Hilton)", desc: "Ancienne prison coloniale puis camp pour pilotes US (dont John McCain). Poignant.", address: "Hoa Lo Prison, 1 Hoa Lo, Hanoi", price: "30k VND" },
+      { type: "food", title: "Pho Thin Bo Ho", desc: "Meilleur pho bo (bœuf) de Hanoi selon les puristes. Pho beef sauté avant. Bouillon halal-compatible.", address: "Pho Thin 13 Lo Duc, Hanoi", price: "~3€" },
+      { type: "location", title: "Marionnettes sur l'eau Thang Long", desc: "Tradition millénaire du nord Vietnam. Show 50 min, 5 séances/jour. Réservez en ligne.", address: "Thang Long Water Puppet Theatre, 57b Dinh Tien Hoang, Hanoi", price: "~4€" },
+      { type: "unique", title: "Bia Hoi Junction (Ta Hien)", desc: "Intersection mythique des tabourets plastiques + bière à 25 centimes. Skip si pas alcool, observez sinon.", address: "Ta Hien & Luong Ngoc Quyen, Hanoi" }
+    ]
+  },
+  {
+    day: 2, date: "Lun 18 août", city: "Ninh Binh", weather: "30°C • ondées",
+    transport: { icon: "🚆", text: "Train Hanoi-Ninh Binh matin (2h, ~7€/pers)" },
+    hotel: { name: "Aravinda Resort", price: "~55€/nuit", address: "Khe Ha hamlet, Ninh Hai, Hoa Lu, Ninh Binh" },
+    activities: [
+      { intensity: "sport", title: "Hang Mua - 500 marches au dragon", desc: "Lever 5h30, sommet à 7h pour la lumière + éviter chaleur. Vue panoramique mythique sur Tam Coc.", address: "Hang Mua viewpoint, Ninh Binh", price: "100k VND" },
+      { intensity: "chill", title: "Barque à pieds Tam Coc", desc: "Femmes rament avec les pieds, technique unique au monde. 3 grottes traversées. 2h30. Pourboire 50k.", address: "Tam Coc boat station, Ninh Binh", price: "~10€/pers" },
+      { intensity: "moderate", title: "Pagode Bich Dong", desc: "Trois pagodes flanc de montagne, dont une sommitale par la grotte. Calme l'après-midi.", address: "Bich Dong Pagoda, Ninh Binh" }
+    ],
+    food: [
+      { halal: "option", title: "Chook Restaurant Tam Coc", desc: "Spécialité chèvre montagnard (thit de) ou poisson grillé. Cadre familial. Demandez sans porc.", address: "Chook Restaurant Tam Coc, Ninh Binh", price: "~8€" },
+      { halal: "option", title: "Restaurant Aravinda lodge", desc: "Cuisine du resort, vue rizières, large carte végétarienne, options halal-friendly.", address: "Aravinda Resort, Ninh Binh", price: "~10€" }
+    ],
+    bonus: [
+      { type: "must", title: "Ancienne capitale Hoa Lu", desc: "Capitale du Vietnam au 10e siècle. Temples Dinh & Le, sereins. Peu de touristes.", address: "Hoa Lu Ancient Capital, Ninh Binh", price: "20k VND" },
+      { type: "hidden", title: "Thung Nham Bird Garden", desc: "Sanctuaire d'oiseaux : milliers d'oiseaux au crépuscule (17h). Bateau dans la forêt inondée.", address: "Thung Nham Bird Garden, Ninh Binh", price: "100k VND" },
+      { type: "unique", title: "Vespa tour villages locaux", desc: "À l'arrière d'une vintage Vespa avec guide, traversée villages campagnards. 3-4h.", address: "Tam Coc Vespa Tour, Ninh Binh", price: "~35€/pers" },
+      { type: "food", title: "Trung Tuyet Restaurant", desc: "Plébiscité par les guides locaux. Plats régionaux authentiques. Réservez le soir.", address: "Trung Tuyet Restaurant, Ninh Binh ville", price: "~7€" },
+      { type: "location", title: "Mua Cave (au-delà du sommet)", desc: "Petite grotte juste avant l'escalier. Souvent ignorée par les touristes qui montent direct.", address: "Hang Mua Cave, Ninh Binh" }
+    ]
+  },
+  {
+    day: 3, date: "Mar 19 août", city: "Ninh Binh", weather: "29°C • soleil le matin",
+    hotel: { name: "Aravinda Resort", price: "~55€/nuit", address: "Aravinda Resort Ninh Binh" },
+    activities: [
+      { intensity: "chill", title: "Trang An Grottoes (UNESCO)", desc: "Boucle 3 caves + 3 temples en sampan, 3h. Choisir route 3 (Dot Cave). Y aller à 7h30 avant la foule.", address: "Trang An Grottoes, Ninh Binh", price: "250k VND" },
+      { intensity: "active", title: "Vélo dans les rizières", desc: "Boucle 15-20 km autour de Tam Coc. Vélos prêtés par l'hôtel. Photos magiques.", address: "Tam Coc, Ninh Binh" },
+      { intensity: "moderate", title: "Pagode Bai Dinh (optionnel)", desc: "Plus grand complexe bouddhiste d'Asie du SE. 700 statues d'Arhats. Prévoir 2-3h, immense.", address: "Bai Dinh Pagoda, Ninh Binh", price: "60k VND" }
+    ],
+    food: [
+      { halal: "option", title: "Trung Tuyet ou Father Cooking", desc: "Restos locaux populaires. Cuisine régionale fraîche. Options sans porc disponibles.", address: "Father Cooking Tam Coc, Ninh Binh", price: "~8€" }
+    ],
+    bonus: [
+      { type: "must", title: "Cathédrale en pierre Phat Diem", desc: "Architecture unique mi-gothique mi-vietnamienne, 100% pierre sculptée. Une heure de route mais incroyable.", address: "Phat Diem Cathedral, Kim Son, Ninh Binh" },
+      { type: "location", title: "Cuc Phuong National Park", desc: "Plus ancien parc national du Vietnam. Jungle authentique, centre de récupération des primates.", address: "Cuc Phuong National Park, Ninh Binh", price: "60k VND" },
+      { type: "hidden", title: "Galaxy Cave (Hang Thien Ha)", desc: "Boat dans grotte alternative à Trang An. Plus sauvage, moins de monde. Lampe frontale fournie.", address: "Galaxy Cave Thien Ha, Ninh Binh", price: "120k VND" },
+      { type: "food", title: "Tam Coc Garden Restaurant", desc: "Cuisine fine dans cadre rizières. Plateau dégustation. Réservation conseillée le soir.", address: "Tam Coc Garden Restaurant, Ninh Binh", price: "~15€" },
+      { type: "unique", title: "Cours fabrication tableau brodé", desc: "Atelier village de broderie Van Lam. 1-2h, expert formateur, repartez avec votre œuvre.", address: "Van Lam Embroidery Village, Ninh Binh" }
+    ]
+  },
+  {
+    day: 4, date: "Mer 20 août", city: "Hoi An", weather: "31°C • averses orageuses",
+    transport: { icon: "✈️", text: "Vol Hanoi-Da Nang midi (1h20, ~50€) + transfert taxi 45 min" },
+    hotel: { name: "Maison Vy Hotel", price: "~50€/nuit", address: "544 Cua Dai, Hoi An, Quang Nam" },
+    activities: [
+      { intensity: "moderate", title: "Vieille ville aux lanternes", desc: "Pont japonais, maisons des marchands chinois, temples. Magique au coucher de soleil + lanternes allumées.", address: "Hoi An Ancient Town", price: "120k VND combo" },
+      { intensity: "chill", title: "Dîner-croisière sur Thu Bon", desc: "Bateau privé 30-45 min avec lanternes, lâchez votre propre lanterne sur l'eau. Magique.", address: "Thu Bon River, Hoi An", price: "~5€" }
+    ],
+    food: [
+      { halal: true, title: "Mosque Restaurant Hoi An", desc: "En face de la mosquée Cham. Halal certifié, cuisine viet + malaise. Excellente.", address: "Mosque Restaurant Hoi An, Nguyen Thai Hoc", price: "~8€" },
+      { halal: "option", title: "Banh Mi Phuong", desc: "Banh mi adulé par Anthony Bourdain. Version poulet possible. File d'attente.", address: "Banh Mi Phuong, 2B Phan Chu Trinh, Hoi An", price: "~1.50€" }
+    ],
+    shopping: [
+      { type: "custom", title: "Lotus Jewellery - briefing custom", desc: "PREMIER JOUR : choisir design bijou sur-mesure pour madame. Maquette J5, retrait J6.", address: "Lotus Jewellery 87 Tran Hung Dao, Hoi An" },
+      { type: "silk", title: "Yaly Couture - prise de mesures", desc: "Costume sur-mesure 24-48h. Tissus italiens, finitions impeccables. La référence Hoi An.", address: "Yaly Couture 358 Nguyen Duy Hieu, Hoi An", price: "150-400€" },
+      { type: "silk", title: "BeBe Tailor (alternative)", desc: "Autre top tailleur Hoi An, parfois moins cher que Yaly à qualité égale. Comparez les devis.", address: "BeBe Tailor 16 Hoang Dieu, Hoi An", price: "100-350€" },
+      { type: "textile", title: "Metiseko Hoi An", desc: "Boutique signature de la marque dans la vieille ville. Soie naturelle + coton bio, motifs uniques. Made in Vietnam.", address: "Metiseko 140-142 Tran Phu, Hoi An", price: "30-150€" }
+    ],
+    bonus: [
+      { type: "unique", title: "Reaching Out Tea House", desc: "Salon de thé tenu par sourds-muets. Silence absolu, commandes par carton de bois. Émouvant.", address: "Reaching Out Tea House 131 Tran Phu, Hoi An" },
+      { type: "food", title: "Bale Well - banh xeo street", desc: "Petit alley resto familial. Banh xeo (crêpes) en formule complète à manger soi-même. Authentique.", address: "Bale Well 45/51 Tran Hung Dao, Hoi An", price: "~7€" },
+      { type: "must", title: "Hoi An Memories Land Show", desc: "Spectacle nocturne grandiose, 500 artistes, lumière + son. Vraiment impressionnant. Réservez en ligne.", address: "Hoi An Memories Show, Cam Nam Island", price: "~25€" },
+      { type: "hidden", title: "Marché aux poissons matinal Ba Le", desc: "5h-6h, marché aux poissons locaux. Ambiance pure, photographique. Café à côté.", address: "Cho Ba Le, Hoi An" },
+      { type: "unique", title: "Reaching Out Arts & Crafts", desc: "Boutique d'artisanat tenue par handicapés. Bijoux argent, broderie, papier. Cause + qualité.", address: "Reaching Out Arts 103 Nguyen Thai Hoc, Hoi An" }
+    ]
+  },
+  {
+    day: 5, date: "Jeu 21 août", city: "Hoi An", weather: "30°C • averses ap-midi",
+    hotel: { name: "Maison Vy Hotel", price: "~50€/nuit", address: "Maison Vy Hotel Hoi An" },
+    activities: [
+      { intensity: "moderate", title: "Sanctuaire My Son (départ 5h)", desc: "Temples Cham 4e-13e siècle. Ouverture 6h, y être pour éviter chaleur + bus. 2h sur place.", address: "My Son Sanctuary, Duy Xuyen", price: "150k VND" },
+      { intensity: "moderate", title: "Cours cuisine Tra Que (chez Ruby)", desc: "Cours végétarien dans village maraîcher. Options halal sur demande à l'avance. 5h total.", address: "Tra Que Vegetable Village, Hoi An", price: "~25€/pers" }
+    ],
+    food: [
+      { halal: "option", title: "Morning Glory Restaurant", desc: "Chef Ms Vy, top adresse Hoi An. Versions seafood/végé. Demandez sans porc explicitement.", address: "Morning Glory 106 Nguyen Thai Hoc, Hoi An", price: "~12€" }
+    ],
+    shopping: [
+      { type: "custom", title: "Lotus Jewellery - validation maquette", desc: "Voir la maquette, ajuster les détails, valider le design final pour livraison J6.", address: "Lotus Jewellery, Hoi An" }
+    ],
+    bonus: [
+      { type: "location", title: "Bay Mau Coconut Forest", desc: "Forêt de cocotiers d'eau, balade en basket boat (bateau-panier rond). Mini-spectacle de pêche.", address: "Bay Mau Coconut Forest, Cam Thanh, Hoi An", price: "~6€" },
+      { type: "hidden", title: "Pagode Phuoc Lam", desc: "Pagode peu visitée hors centre, ambiance paisible. Belle pour photos sans foule.", address: "Phuoc Lam Pagoda, Hoi An" },
+      { type: "unique", title: "Atelier fabrication lanternes", desc: "Faire sa propre lanterne en soie. 1-2h, à ramener. Atelier Ha Linh ou similaires.", address: "Lantern Making Workshop Hoi An", price: "~10€" },
+      { type: "food", title: "Streets Restaurant Café", desc: "ONG qui forme jeunesse défavorisée. Bon cao lau version poulet. Manger pour la cause.", address: "Streets Restaurant 17 Le Loi, Hoi An", price: "~8€" },
+      { type: "must", title: "My Son danse Apsara on-site", desc: "Spectacle danse Cham traditionnelle 9h45 sur le site My Son. Inclus dans le billet. Court mais beau.", address: "My Son Sanctuary stage" }
+    ]
+  },
+  {
+    day: 6, date: "Ven 22 août", city: "Hoi An", weather: "31°C • beau temps",
+    hotel: { name: "Maison Vy Hotel", price: "~50€/nuit", address: "Maison Vy Hotel Hoi An" },
+    activities: [
+      { intensity: "active", title: "Vélo vers An Bang Beach", desc: "20 min vélo à travers rizières. Vélo prêté hôtel. Bateaux-paniers ronds en chemin.", address: "An Bang Beach, Hoi An" },
+      { intensity: "chill", title: "Journée plage An Bang", desc: "Transats 75k VND. Sound of Silence Cafe pour déjeuner seafood. Eau chaude, baignade safe.", address: "An Bang Beach, Hoi An" }
+    ],
+    food: [
+      { halal: "option", title: "Sound of Silence Coffee", desc: "Café/resto plage cool, seafood frais. Smoothie bowls. Vue mer parfaite.", address: "Sound of Silence, An Bang Beach", price: "~8€" }
+    ],
+    shopping: [
+      { type: "custom", title: "Lotus Jewellery - retrait bijou final", desc: "Récupération de la pièce sur-mesure. Photos, ajustements, paiement final.", address: "Lotus Jewellery, Hoi An" },
+      { type: "silk", title: "Yaly Couture - essayage + retrait", desc: "Si commande J4. Derniers ajustements et retrait du costume.", address: "Yaly Couture Hoi An" },
+      { type: "pearl", title: "Hoi An Pearl Gallery", desc: "Perles cultivées vietnamiennes. Exigez certificat origine. Méfiez-vous des fausses 'Akoya'.", address: "Hoi An Pearl Gallery" },
+      { type: "bazar", title: "Marché central Hoi An", desc: "Souvenirs, lanternes pliables (cadeaux parfaits), épices, café local Robusta.", address: "Hoi An Central Market" },
+      { type: "textile", title: "A Dong Silk - lin et soie", desc: "Boutique-tailleur avec belles collections lin (frais en climat humide). Idéal robes, chemises légères. Made local.", address: "A Dong Silk 40 Le Loi, Hoi An", price: "50-200€" },
+      { type: "custom", title: "Ao Dai sur-mesure pour madame", desc: "Robe traditionnelle vietnamienne sur-mesure. 24-48h. Cadeau unique. Plusieurs boutiques rue Le Loi.", address: "Ao Dai tailor Le Loi, Hoi An", price: "60-150€" }
+    ],
+    bonus: [
+      { type: "location", title: "Cham Islands snorkeling", desc: "Excursion jonque + snorkel + déjeuner pêcheurs. Si météo OK seulement (août = risqué).", address: "Cham Islands Hoi An", price: "~30€" },
+      { type: "food", title: "Hoi An Roastery", desc: "Café local emblématique, multi-adresses dans la vieille ville. Café vietnamien excellent.", address: "Hoi An Roastery 685 Hai Ba Trung", price: "~2€" },
+      { type: "hidden", title: "Sa Huynh Beach", desc: "Plage alternative à An Bang, plus calme, peu de touristes. 10 min plus loin en vélo.", address: "Sa Huynh Beach, Hoi An" },
+      { type: "unique", title: "Tra Que sunset bicycle tour", desc: "Vélo coucher de soleil dans le village maraîcher. Lumière dorée, peu de monde.", address: "Tra Que Vegetable Village" },
+      { type: "must", title: "Pont japonais à 6h du matin", desc: "Pour photos sans foule. Ambiance dorée, le seul moment où c'est désert. Vaut la peine de se lever.", address: "Japanese Covered Bridge Hoi An" }
+    ]
+  },
+  {
+    day: 7, date: "Sam 23 août", city: "Saigon (HCMC)", weather: "32°C • averses brèves",
+    transport: { icon: "✈️", text: "Vol Da Nang-Saigon matin (1h30, ~50€)" },
+    hotel: { name: "The Hammock Hotel Ben Thanh", price: "~45€/nuit", address: "74-76 Le Lai, District 1, HCMC" },
+    activities: [
+      { intensity: "chill", title: "War Remnants Museum", desc: "Bouleversant. Vision vietnamienne de la guerre. Ouverture 7h30, 2h sur place. Mouchoirs conseillés.", address: "War Remnants Museum, 28 Vo Van Tan, District 3, HCMC", price: "40k VND" },
+      { intensity: "moderate", title: "Notre-Dame + Poste + Palais Réunification", desc: "Triangle colonial à pied. Palais figé en avril 1975, glaçant. Cathédrale Notre-Dame en rénovation.", address: "Reunification Palace, HCMC" },
+      { intensity: "chill", title: "Rooftop Saigon Saigon (Caravelle)", desc: "Verre au coucher du soleil. Vue panoramique. Iconique des correspondants de guerre des années 60.", address: "Caravelle Hotel, Cong Truong Lam Son, HCMC", price: "~10€ cocktail" }
+    ],
+    food: [
+      { halal: true, title: "D'Nyonya Halal", desc: "Quartier halal rue Dong Du. Cuisine indo-malaise + viet halal. Biryani, rendang, satay.", address: "D'Nyonya Saigon, Dong Du street, District 1" },
+      { halal: true, title: "VN Halal Restaurant", desc: "Autre adresse halal certifiée. Près mosquée Jamia Al-Musulman.", address: "VN Halal, near Jamia Mosque, Dong Du" }
+    ],
+    shopping: [
+      { type: "watch-new", title: "Hai Trieu Watch FLAGSHIP", desc: "Plus grand showroom Seiko du pays. Stock énorme, prix fixes, garantie internationale.", address: "Hai Trieu 92-94 3 Thang 2, District 10, HCMC" },
+      { type: "watch-vintage", title: "Rue Le Cong Kieu - antiquaires", desc: "Quelques boutiques vintage mêlées à antiquités. Tri sévère mais perles possibles.", address: "Le Cong Kieu street, District 1, HCMC" },
+      { type: "gold", title: "PNJ Saigon flagship", desc: "Plus grand magasin PNJ. Or 18K-24K avec certificats. Prix fixes.", address: "PNJ 170E Phan Dang Luu, Phu Nhuan, HCMC" },
+      { type: "bazar", title: "Marché Tan Dinh + église rose", desc: "Vrai marché local + église rose photogénique à côté. Bien plus authentique que Ben Thanh.", address: "Tan Dinh Market, District 1, HCMC" },
+      { type: "textile", title: "L'Usine - lifestyle multimarques", desc: "Concept-store café + boutique. Sélection de créateurs vietnamiens contemporains : vêtements, sacs, accessoires. Aucune contrefaçon.", address: "L'Usine 151 Dong Khoi, District 1, HCMC", price: "30-150€" },
+      { type: "textile", title: "Catherine Denoual Maison", desc: "Linge et textiles de luxe brodés main au Vietnam. Designer française installée à Saigon. Chemises, robes, linge de maison sublime.", address: "Catherine Denoual 38 Dong Khoi, HCMC", price: "80-300€" },
+      { type: "textile", title: "Saigon Kitsch", desc: "Marque locale fun : T-shirts, accessoires avec designs originaux Saigon/Vietnam. Original, abordable, sympa cadeaux.", address: "Saigon Kitsch 33 Ton That Thiep, HCMC", price: "10-30€" },
+      { type: "bazar", title: "⚠️ Saigon Square - À ÉVITER", desc: "Centre commercial réputé pour contrefaçons (Nike, Adidas, etc). Vous nous avez dit pas de contrefaçon = SKIP. Saigon Centre ou Vincom OK pour vraies marques.", address: "Saigon Square, District 1" }
+    ],
+    bonus: [
+      { type: "must", title: "Cu Chi Tunnels (excursion demi-journée)", desc: "Tunnels Viet Cong, immersif. Ramper, voir armes, tirer si vous voulez. Bus 6h-12h ou 13h-18h.", address: "Cu Chi Tunnels, Ben Duoc", price: "~15€ entrée" },
+      { type: "hidden", title: "Apartment Block 42 Nguyen Hue", desc: "Vieil immeuble transformé en multiples cafés indépendants par étage. Découverte chacun unique.", address: "42 Nguyen Hue, District 1, HCMC" },
+      { type: "food", title: "Pho Hoa Pasteur", desc: "Meilleur pho de Saigon depuis 60+ ans. Bouillon limpide. Demander halal-friendly.", address: "Pho Hoa 260C Pasteur, District 3, HCMC", price: "~3€" },
+      { type: "must", title: "Bitexco Saigon Skydeck", desc: "Vue 360° depuis le 49e étage de la tour la plus haute. Coucher de soleil = magique.", address: "Bitexco Financial Tower, 2 Hai Trieu, HCMC", price: "~10€" },
+      { type: "unique", title: "Bui Vien Walking Street le soir", desc: "Rue qui ne dort jamais. Foule, néons, musique, vendeurs. À voir une fois pour le choc des sens.", address: "Bui Vien Street, District 1, HCMC" }
+    ]
+  },
+  {
+    day: 8, date: "Dim 24 août", city: "Mui Ne", weather: "30°C • zone sèche !",
+    transport: { icon: "🚌", text: "Bus VIP Saigon-Mui Ne 8h (5h, ~25€/pers en limousine sleeper)" },
+    hotel: { name: "Bamboo Village Beach Resort", price: "~65€/nuit", address: "38 Nguyen Dinh Chieu, Mui Ne, Phan Thiet" },
+    activities: [
+      { intensity: "moderate", title: "Dunes Rouges au coucher", desc: "Balade dunes orangées. Glisse plastique (10k). Lever de lune ensuite. Magnifique.", address: "Red Sand Dunes, Mui Ne", price: "10-20k VND" }
+    ],
+    food: [
+      { halal: "option", title: "Bo Ke seafood street", desc: "Rangée de restos sur plage. Vous choisissez vivants, on cuisine devant vous. Magique.", address: "Bo Ke seafood Mui Ne", price: "~15€/pers" }
+    ],
+    bonus: [
+      { type: "must", title: "Fairy Stream (Suoi Tien)", desc: "Mini canyon en argile rouge et blanche, marche pieds nus dans le ruisseau. 30 min. Magique.", address: "Fairy Stream Suoi Tien, Mui Ne", price: "Gratuit" },
+      { type: "food", title: "Chez Maguy", desc: "Mythique resto français de Mui Ne tenu par expat. Plats franco-viet, vins. Cult.", address: "Chez Maguy 67 Nguyen Dinh Chieu, Mui Ne", price: "~20€" },
+      { type: "location", title: "Po Sah Inu Cham Towers", desc: "Vestiges Cham 9e siècle au-dessus de Phan Thiet. Vue mer + coucher de soleil tranquille.", address: "Po Sah Inu Cham Towers, Phan Thiet", price: "20k VND" },
+      { type: "unique", title: "Kitesurf intro session", desc: "Mui Ne = capitale du kite en Asie du SE. Cours d'initiation 2-3h. Spot venteux toute l'année.", address: "Kite School Mui Ne", price: "~50€" },
+      { type: "hidden", title: "Mui Ne Old Lighthouse", desc: "Phare colonial sur colline. Petit hike, vue spectaculaire mer + village. Peu connu des touristes.", address: "Mui Ne Old Lighthouse, Hon Lao" }
+    ]
+  },
+  {
+    day: 9, date: "Lun 25 août", city: "Mui Ne", weather: "30°C • ensoleillé",
+    hotel: { name: "Bamboo Village Beach Resort", price: "~65€/nuit", address: "Bamboo Village Beach Mui Ne" },
+    activities: [
+      { intensity: "sport", title: "Dunes Blanches au lever (départ 4h30)", desc: "Jeep 4x4 vers Bau Trang. Marcher pieds nus dans dunes blanches. Photos légendaires. Soleil tape vite.", address: "White Sand Dunes Bau Trang", price: "~25€ jeep partagée" },
+      { intensity: "chill", title: "Village pêcheurs + bateaux-paniers", desc: "Marché matinal poissons. Photos bateaux ronds typiques. Sale mais ultra photogénique.", address: "Mui Ne Fishing Village" }
+    ],
+    food: [
+      { halal: "option", title: "Sandals Restaurant (Mia Resort)", desc: "Resto plage chic. Seafood + cocktails. Option vegan/sans porc sur demande.", address: "Sandals Restaurant Mia Mui Ne", price: "~20€" }
+    ],
+    shopping: [
+      { type: "food-shop", title: "Visite fabrique nuoc mam", desc: "Fabrique sauce poisson spécialité de Phan Thiet. Achat bouteilles à ramener.", address: "Fish Sauce factory Phan Thiet" }
+    ],
+    bonus: [
+      { type: "hidden", title: "Lotus Lake Bau Sen", desc: "Lac aux lotus entre les dunes blanches. Au lever du soleil = surnaturel. Peu de touristes.", address: "Bau Sen Lotus Lake, Bau Trang" },
+      { type: "unique", title: "Sand Sculptures Park", desc: "Parc de sculptures de sable géantes. Kitsch mais photogénique. Avant de quitter la zone dunes.", address: "Sand Sculpture Park Mui Ne", price: "60k VND" },
+      { type: "food", title: "Pizza Bom", desc: "Pizza italienne authentique mythique à Mui Ne. Tenu par italien expat. Pause confort.", address: "Pizza Bom 116 Nguyen Dinh Chieu, Mui Ne", price: "~10€" },
+      { type: "location", title: "Cham village Phan Thiet", desc: "Communauté Cham musulmane (lien avec votre intérêt halal). Mosquée + culture distincte.", address: "Cham village Phan Thiet" },
+      { type: "hidden", title: "Suoi Hong (Hidden Stream)", desc: "Petit ruisseau coloré rouge moins connu que Fairy Stream. Encore plus calme.", address: "Suoi Hong, Mui Ne" }
+    ]
+  },
+  {
+    day: 10, date: "Mar 26 août", city: "Mékong (Ben Tre)", weather: "31°C • averses fin ap-midi",
+    transport: { icon: "🚗", text: "Voiture privée Mui Ne → HCMC → Ben Tre (6-7h, ~80€)" },
+    hotel: { name: "Mekong Rustic Ben Tre", price: "~55€/nuit", address: "C3 Hamlet, Phu Phung, Cho Lach, Ben Tre" },
+    activities: [
+      { intensity: "chill", title: "Sampan en fin de journée", desc: "Court tour dans petits canaux à l'arrivée. Premier contact avec le rythme delta.", address: "Mekong Rustic Ben Tre" }
+    ],
+    food: [
+      { halal: "option", title: "Restaurant du lodge", desc: "Cuisine delta : poisson elephant ear, soupe canard. Demandez sans porc.", address: "Mekong Rustic Ben Tre", price: "~10€" }
+    ],
+    bonus: [
+      { type: "must", title: "Temple Cao Dai (sur la route si possible)", desc: "Religion syncrétique unique au monde (Bouddha + Jésus + Confucius + Victor Hugo !). Détour 1h.", address: "Cao Dai Holy See Tay Ninh", price: "Gratuit" },
+      { type: "location", title: "Vinh Trang Pagoda Tien Giang", desc: "Énormes statues bouddhistes (Bouddha rieur 30m). Sur la route HCMC-Ben Tre, parfait stop.", address: "Vinh Trang Pagoda, My Tho" },
+      { type: "unique", title: "Coconut wine tasting", desc: "Dégustation vin de palme/coco local au lodge. Original, sucré, ferme la soirée.", address: "Mekong Rustic Ben Tre" },
+      { type: "hidden", title: "Snake Farm Dong Tam", desc: "Élevage de serpents pour antivenin. Peu touristique, fascinant. Détour court depuis My Tho.", address: "Dong Tam Snake Farm, My Tho", price: "50k VND" },
+      { type: "food", title: "Hu tieu My Tho", desc: "Spécialité du Mékong : nouilles bouillon clair, plus subtil que pho. Demandez seafood version.", address: "Hu Tieu street stalls, My Tho", price: "~2€" }
+    ]
+  },
+  {
+    day: 11, date: "Mer 27 août", city: "Mékong (Ben Tre)", weather: "30°C • ensoleillé matin",
+    hotel: { name: "Mekong Rustic Ben Tre", price: "~55€/nuit", address: "Mekong Rustic Ben Tre" },
+    activities: [
+      { intensity: "chill", title: "Marché flottant Cai Be (départ 5h30)", desc: "Moins touristique que Cai Rang. Bateaux vendent fruits, café, soupes. Vraie ambiance.", address: "Cai Be Floating Market", price: "Tour ~12€" },
+      { intensity: "moderate", title: "Ateliers locaux", desc: "Fabrique bonbon coco, briqueterie, ferme apicole. Dégustation fruits + thé miel.", address: "Coconut Candy Workshop Ben Tre" },
+      { intensity: "active", title: "Kayak coucher de soleil", desc: "Pagayage tranquille dans arroyos sous cocotiers. Magique en fin de jour.", address: "Mekong Rustic Ben Tre" }
+    ],
+    food: [
+      { halal: "option", title: "Déjeuner local village", desc: "Inclus dans tour ateliers. Cuisine paysanne : riz, légumes, fruits frais. Authentique.", price: "Inclus" }
+    ],
+    shopping: [
+      { type: "craft", title: "Bonbons coco artisanaux", desc: "Achat direct à la fabrique. Cadeaux parfaits. 30-50k VND/sachet.", address: "Coconut Candy Workshop Ben Tre" },
+      { type: "food-shop", title: "Marché local Ben Tre", desc: "Fruits exotiques (durian, mangoustan, ramboutan), café Trung Nguyen, miel.", address: "Cho Ben Tre Market" }
+    ],
+    bonus: [
+      { type: "must", title: "Sa Dec - jardin de l'Amant", desc: "Ville natale de l'amant de Marguerite Duras. Maison Huynh Thuy Le visitable. Émouvant.", address: "Huynh Thuy Le House, Sa Dec", price: "~1€" },
+      { type: "hidden", title: "Pagode khmère Vinh Long", desc: "Architecture khmère différente du bouddhisme viet. Couleurs vives, peu de touristes.", address: "Khmer Pagoda Vinh Long" },
+      { type: "unique", title: "Brick factories Mang Thit", desc: "Cathédrales de briques le long du fleuve. Photographique. Visite four traditionnel.", address: "Mang Thit Brick Factory, Vinh Long" },
+      { type: "location", title: "Forest of Crocodiles (mangrove)", desc: "Excursion mangrove en barque, possible voir crocodiles. Demi-journée nature.", address: "Mangrove Forest Ben Tre" },
+      { type: "food", title: "Restaurant Co Ba bird's nest soup", desc: "Spécialité régionale : soupe de nids d'hirondelles. Coûteux mais expérience unique.", address: "Co Ba Restaurant My Tho", price: "~25€" }
+    ]
+  },
+  {
+    day: 12, date: "Jeu 28 août", city: "Da Lat", weather: "20°C • frais et humide",
+    transport: { icon: "✈️", text: "Vol HCMC-Da Lat matin (50 min, ~50€)" },
+    hotel: { name: "Terracotta Hotel & Resort", price: "~50€/nuit", address: "Tuyen Lam Lake, Ward 3, Da Lat" },
+    activities: [
+      { intensity: "moderate", title: "Pagode Linh Phuoc", desc: "Pagode entièrement décorée en tessons de bouteilles colorées. Insta-bomb absolue.", address: "Linh Phuoc Pagoda, Da Lat", price: "Gratuit" },
+      { intensity: "chill", title: "Marché central Da Lat", desc: "Cœur de la ville. Légumes hauts plateaux, fleurs, artichauts (spécialité), café.", address: "Cho Da Lat Market" }
+    ],
+    food: [
+      { halal: "option", title: "An Cafe (végétal)", desc: "Restaurant entièrement vegan. Options halal-friendly garanties. Cadre cool.", address: "An Cafe 63 bis Ba Thang Hai, Da Lat", price: "~7€" }
+    ],
+    shopping: [
+      { type: "food-shop", title: "Trung Nguyen Coffee Da Lat", desc: "Café local, weasel coffee à goûter et acheter. Marque la plus connue du Vietnam.", address: "Trung Nguyen Legend Cafe Da Lat" }
+    ],
+    bonus: [
+      { type: "must", title: "Pongour Waterfall", desc: "Plus belle cascade de la région. 50 km de Da Lat. Très large, en gradins. Vaut le déplacement.", address: "Pongour Waterfall, Duc Trong", price: "20k VND" },
+      { type: "hidden", title: "Café Tung (depuis 1958)", desc: "Café historique fréquenté par musiciens et artistes vietnamiens. Vinyles, ambiance feutrée.", address: "Cafe Tung 6 Khu Hoa Binh, Da Lat" },
+      { type: "unique", title: "Train de la crémaillère vers Trai Mat", desc: "Train colonial vintage restauré. 30 min jusqu'à Trai Mat (Linh Phuoc). Trajet historique.", address: "Dalat Railway Station, Da Lat", price: "120k VND aller-retour" },
+      { type: "food", title: "Nem nuong Bà Hùng", desc: "Spécialité Da Lat : viande grillée + galettes de riz à rouler soi-même. Vraiment local.", address: "Nem Nuong Ba Hung, 254 Phan Dinh Phung, Da Lat", price: "~5€" },
+      { type: "location", title: "Tuyen Lam Lake", desc: "Grand lac à 5 min du resort Terracotta. Coucher de soleil, kayak, hammocks. Très chill.", address: "Tuyen Lam Lake, Da Lat" }
+    ]
+  },
+  {
+    day: 13, date: "Ven 29 août", city: "Da Lat", weather: "21°C • soleil matin",
+    hotel: { name: "Terracotta Hotel & Resort", price: "~50€/nuit", address: "Terracotta Hotel Da Lat" },
+    activities: [
+      { intensity: "moderate", title: "Crazy House (Hang Nga Villa)", desc: "Architecture surréaliste façon Gaudi. Labyrinthe de passerelles, fenêtres tordues. Y aller 8h.", address: "Crazy House Da Lat", price: "60k VND" },
+      { intensity: "active", title: "Cascade Datanla + Alpine Coaster", desc: "Descente en luge sur rail à travers forêt jusqu'à la cascade. Fun à fond.", address: "Datanla Waterfall, Da Lat", price: "100k aller-retour" },
+      { intensity: "chill", title: "Plantation de café K'Ho", desc: "Visite plantation arabica, dégustation weasel coffee (passé par civette). Légendaire.", address: "K'Ho Coffee Da Lat" }
+    ],
+    food: [
+      { halal: "option", title: "Da Lat Night Market - banh trang nuong", desc: "Pizza vietnamienne grillée. Street food. Plats végé partout.", address: "Da Lat Night Market", price: "~3€" }
+    ],
+    shopping: [
+      { type: "ethnic", title: "Textiles K'Ho marché de nuit", desc: "Tissus tissés main par minorités K'Ho et Lat. Foulards, plaids, écharpes. Authentique ethnique, pas industriel. Marchandez -30%.", address: "Da Lat Night Market" },
+      { type: "textile", title: "Pulls et tricots Da Lat", desc: "Da Lat = climat frais = capitale viet du tricot. Pulls laine/coton, cardigans, bonnets. Rue Phan Boi Chau et marché jour. Qualité variable, vérifiez bien les coutures.", address: "Phan Boi Chau street, Da Lat", price: "10-30€" },
+      { type: "ethnic", title: "K'Ho Coffee village - tissage", desc: "Si visite plantation K'Ho (J13), possible voir métier à tisser traditionnel. Achat direct au producteur sans intermédiaire.", address: "K'Ho Coffee Da Lat" },
+      { type: "food-shop", title: "Confitures et fruits secs Da Lat", desc: "Spécialités hauts plateaux : confiture fraise, artichaut séché, vin de Dalat.", address: "Cho Da Lat Market" }
+    ],
+    bonus: [
+      { type: "must", title: "Truc Lam Zen Monastery + téléphérique", desc: "Monastère zen au bord du Tuyen Lam Lake. Accès via téléphérique pano. Jardin japonais.", address: "Truc Lam Monastery, Da Lat", price: "Téléphérique 80k" },
+      { type: "unique", title: "Maze Bar", desc: "Bar labyrinthe surréaliste, escaliers en tous sens, cachettes. Boire un verre dans un délire.", address: "100 Roofs Cafe Maze Bar, Da Lat", price: "Drinks ~3€" },
+      { type: "hidden", title: "Robin Hill", desc: "Vue panoramique 360° sur Da Lat et la vallée. Téléphérique ou voiture. Moins fréquenté que Crazy House.", address: "Robin Hill Da Lat", price: "80k VND" },
+      { type: "food", title: "Da Quy Restaurant", desc: "Cuisine artichaut spécialité locale (Da Lat = capitale de l'artichaut). Plats raffinés.", address: "Da Quy Restaurant 49 Truong Cong Dinh, Da Lat", price: "~10€" },
+      { type: "location", title: "Lake of Sighs (Ho Than Tho)", desc: "Lac romantique avec légende d'amour tragique. Promenade, photos, atmosphère mélancolique.", address: "Lake of Sighs, Da Lat", price: "20k VND" }
+    ]
+  },
+  {
+    day: 14, date: "Sam 30 août", city: "Hanoi", weather: "32°C • averses",
+    transport: { icon: "✈️", text: "Vol Da Lat-Hanoi via HCMC (3-4h porte à porte, ~80€/pers)" },
+    hotel: { name: "Essence Hanoi Hotel & Spa", price: "~50€/nuit", address: "22 Ta Hien, Hoan Kiem, Hanoi" },
+    activities: [
+      { intensity: "chill", title: "Temple de la Littérature", desc: "Première université du Vietnam (1070). Cours intérieures paisibles. 1h sur place.", address: "Temple of Literature, Hanoi", price: "30k VND" }
+    ],
+    food: [
+      { halal: true, title: "Tamarind Café", desc: "Dîner végétarien excellent dernier soir. Cuisine fusion saine. Halal-friendly intégral.", address: "Tamarind Café 80 Ma May, Hanoi", price: "~10€" }
+    ],
+    shopping: [
+      { type: "silver", title: "Rue Hang Bac - dernière chasse argenterie", desc: "Si pas eu le temps J1. Pièces uniques filigrane. Dernière opportunité.", address: "Hang Bac street, Hanoi" },
+      { type: "silk", title: "Rue Hang Gai - soie + Tan My Design", desc: "Foulards, peintures sur soie, sacs. Tan My Design = la référence haut de gamme.", address: "Tan My Design 66 Hang Gai, Hanoi" },
+      { type: "textile", title: "Marie-Linh Boutique", desc: "Designer franco-vietnamienne, vêtements féminins contemporains. Coupes parfaites, lin et coton. Plusieurs adresses Hanoi.", address: "Marie-Linh 11 Nha Tho, Hanoi", price: "40-150€" },
+      { type: "textile", title: "Things of Substance", desc: "Boutique multimarques sélection rigoureuse. Créateurs vietnamiens contemporains. Womenswear de qualité.", address: "Things of Substance 5 Nha Tho, Hanoi", price: "30-120€" },
+      { type: "watch-vintage", title: "Dernière chasse Hang Bong", desc: "Repassage pour dernière opportunité si vous n'avez pas trouvé J1. Comparer avec votre nouvelle expertise.", address: "Hang Bong street, Hanoi" }
+    ],
+    bonus: [
+      { type: "must", title: "Hoa Lo Prison Museum", desc: "Ancienne prison coloniale + camp pilotes US (le 'Hanoi Hilton'). Bouleversant. 1h-2h.", address: "Hoa Lo Prison Museum, Hanoi", price: "30k VND" },
+      { type: "location", title: "West Lake (Tay Ho) coucher de soleil", desc: "Plus grand lac de Hanoi. Café au bord, coucher de soleil sur l'eau. Tour à vélo 17 km possible.", address: "West Lake Tay Ho, Hanoi" },
+      { type: "food", title: "Quan An Ngon", desc: "Restaurant cuisine régionale viet, large choix dans cour à l'ancienne. Halal-friendly possible.", address: "Quan An Ngon 18 Phan Boi Chau, Hanoi", price: "~12€" },
+      { type: "hidden", title: "Bao Khanh street - cafés alley", desc: "Petite ruelle parallèle au lac Hoan Kiem, pleine de cafés cachés, ambiance cool, peu touristique.", address: "Bao Khanh street, Hanoi" },
+      { type: "unique", title: "Massage traditionnel La Belle Spa", desc: "Massage 90 min final pour décompresser avant vol. Excellente réputation, propre, raisonnable.", address: "La Belle Spa Hanoi", price: "~20€/90min" }
+    ]
+  }
+];
+
+const INTENSITY = {
+  chill: { icon: "🛋️", label: "Chill" },
+  moderate: { icon: "🚶", label: "Modéré" },
+  active: { icon: "🚴", label: "Actif" },
+  sport: { icon: "⛰️", label: "Sportif" }
+};
+
+const SHOP_LABELS = {
+  "watch-new": "Montre neuve", "watch-vintage": "Montre vintage",
+  "gold": "Or", "silver": "Argenterie",
+  "custom": "Sur-mesure", "pearl": "Perles", "silk": "Soie/Tailleur",
+  "bazar": "Bazar local", "craft": "Artisanat", "food-shop": "Spécialité",
+  "textile": "Textile/Mode", "ethnic": "Ethnique"
+};
+
+const BONUS_LABELS = {
+  food: "🍴 Food", location: "📍 Lieu", must: "⭐ Must-see",
+  hidden: "💎 Caché", unique: "✨ Unique"
+};
+
+const HALAL_LABELS = {
+  true: { label: "HALAL ✓", cls: "tag-halal" },
+  option: { label: "DEMANDER", cls: "tag-halal-option" }
+};
+
+// State
+let state = {
+  activeDay: 1,
+  checked: {}
+};
+
+try {
+  const saved = localStorage.getItem("vn-trip-2026");
+  if (saved) state.checked = JSON.parse(saved);
+} catch(e) {}
+
+function save() {
+  try { localStorage.setItem("vn-trip-2026", JSON.stringify(state.checked)); } catch(e) {}
+}
+
+function toggle(key) {
+  state.checked[key] = !state.checked[key];
+  save();
+  render();
+}
+
+function setDay(d) {
+  state.activeDay = d;
+  render();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function resetProgress() {
+  if (confirm("Réinitialiser tous les cochés ?")) {
+    state.checked = {};
+    save();
+    render();
+  }
+}
+
+window.toggle = toggle;
+window.setDay = setDay;
+window.resetProgress = resetProgress;
+
+function mapsUrl(q) {
+  return "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(q);
+}
+
+function escapeHtml(s) {
+  if (!s) return "";
+  return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+
+function getAllItems(d) {
+  const items = [];
+  (d.activities||[]).forEach(x => items.push({...x, section:"activities"}));
+  (d.food||[]).forEach(x => items.push({...x, section:"food"}));
+  (d.shopping||[]).forEach(x => items.push({...x, section:"shopping"}));
+  if (d.hotel) items.push({...d.hotel, section:"hotel"});
+  (d.bonus||[]).forEach(x => items.push({...x, section:"bonus"}));
+  return items;
+}
+
+function dayStats(d) {
+  const items = getAllItems(d);
+  let done = 0;
+  items.forEach((_, i) => { if (state.checked[`d${d.day}-${i}`]) done++; });
+  return { done, total: items.length };
+}
+
+function totalStats() {
+  let done = 0, total = 0;
+  TRIP.forEach(d => { const s = dayStats(d); done += s.done; total += s.total; });
+  return { done, total, pct: total ? (done/total*100) : 0 };
+}
+
+function renderItem(item, key, sectionKind) {
+  const done = state.checked[key];
+  const tags = [];
+
+  if (item.intensity) {
+    const i = INTENSITY[item.intensity];
+    tags.push(`<span class="tag tag-${item.intensity}">${i.icon} ${i.label}</span>`);
+  }
+  if (item.type && SHOP_LABELS[item.type]) {
+    tags.push(`<span class="tag tag-${item.type}">${SHOP_LABELS[item.type]}</span>`);
+  }
+  if (sectionKind === "bonus" && item.type && BONUS_LABELS[item.type]) {
+    tags.push(`<span class="tag tag-${item.type}">${BONUS_LABELS[item.type]}</span>`);
+  }
+  if (item.halal !== undefined && HALAL_LABELS[item.halal]) {
+    const h = HALAL_LABELS[item.halal];
+    tags.push(`<span class="tag ${h.cls}">${h.label}</span>`);
+  }
+
+  const tagsHtml = tags.length ? `<div class="item-tags">${tags.join("")}</div>` : "";
+  const descHtml = item.desc ? `<p class="item-desc">${escapeHtml(item.desc)}</p>` : "";
+  const priceHtml = item.price ? `<span class="item-price">${escapeHtml(item.price)}</span>` : "";
+  const mapsHtml = item.address ? `<a class="maps-link" href="${mapsUrl(item.address)}" target="_blank" rel="noopener">📍 Maps</a>` : "";
+
+  return `
+    <div class="item ${done?"done":""}">
+      <div class="item-row">
+        <button class="checkbox ${done?"done":""}" onclick="toggle('${key}')" aria-label="Cocher">${done?"✓":""}</button>
+        <div class="item-body">
+          <div class="item-head">
+            <div class="item-title">${escapeHtml(item.title||item.name)}</div>
+            ${tagsHtml}
+          </div>
+          ${descHtml}
+          <div class="item-footer">${mapsHtml}${priceHtml}</div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function render() {
+  const day = TRIP.find(d => d.day === state.activeDay);
+  const stats = totalStats();
+
+  let html = `
+    <div class="header">
+      <div class="header-top">
+        <div>
+          <div class="header-title">🇻🇳 Vietnam 14j</div>
+          <div class="header-date">17 août → 31 août 2026 · couple</div>
+        </div>
+        <div class="header-stats">
+          <div class="header-counter">${stats.done}/${stats.total}</div>
+          <div class="header-label">complétés</div>
+        </div>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="width:${stats.pct}%"></div></div>
+      <div class="tabs">
+        ${TRIP.map(d => {
+          const ds = dayStats(d);
+          const cls = d.day === state.activeDay ? "active" : (ds.total > 0 && ds.done === ds.total ? "done" : "");
+          return `<button class="tab ${cls}" onclick="setDay(${d.day})">J${d.day}<span class="tab-count">${ds.done}/${ds.total}</span></button>`;
+        }).join("")}
+      </div>
+    </div>
+    <div class="content">
+      <div class="day-header">
+        <div class="day-title">
+          <div class="day-city">${escapeHtml(day.city)}</div>
+          <div class="day-date">${escapeHtml(day.date)}</div>
+        </div>
+        <div class="day-meta">☁️ ${escapeHtml(day.weather)}</div>
+        ${day.transport ? `<div class="transport">${day.transport.icon} ${escapeHtml(day.transport.text)}</div>` : ""}
+      </div>
+  `;
+
+  let idx = 0;
+  const sections = [
+    { key: "activities", title: "Activités", icon: "🎯", items: day.activities || [] },
+    { key: "food", title: "Nourriture & Restos", icon: "🍜", items: day.food || [] },
+    { key: "shopping", title: "Shopping", icon: "🛍️", items: day.shopping || [] },
+    { key: "hotel", title: "Hébergement", icon: "🏨", items: day.hotel ? [day.hotel] : [] },
+    { key: "bonus", title: "✨ Bonus secrets", icon: "💎", items: day.bonus || [] }
+  ];
+
+  sections.forEach(s => {
+    if (s.items.length === 0) return;
+    html += `<div class="section ${s.key}">
+      <div class="section-header">
+        <span class="section-icon">${s.icon}</span>
+        <span class="section-title">${s.title}</span>
+      </div>
+      <div class="items">`;
+    s.items.forEach(it => {
+      const k = `d${day.day}-${idx++}`;
+      html += renderItem(it, k, s.key);
+    });
+    html += `</div></div>`;
+  });
+
+  if (state.activeDay === 1) {
+    html += `
+      <div class="legend">
+        <div class="legend-title">Légende intensité</div>
+        <div class="legend-grid">
+          <span class="tag tag-chill">🛋️ Chill</span>
+          <span class="tag tag-moderate">🚶 Modéré</span>
+          <span class="tag tag-active">🚴 Actif</span>
+          <span class="tag tag-sport">⛰️ Sportif</span>
+        </div>
+      </div>
+      <div class="tip-box">
+        <strong>💡 Astuce :</strong> Ajoutez cette page à votre écran d'accueil (Partager → Sur l'écran d'accueil sur iOS, ou ⋮ → Ajouter à l'écran sur Android). Fonctionne 100% offline. Vos cochés sont sauvegardés.
+      </div>
+    `;
+  }
+
+  html += `</div>`;
+
+  document.getElementById("app").innerHTML = html;
+}
+
+render();
+</script>
+</body>
+</html>
