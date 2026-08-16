@@ -187,6 +187,20 @@ details summary{list-style:none}
 .migbar{margin:0 14px 14px;padding:11px 12px;background:rgba(96,165,250,.1);border:1px solid rgba(96,165,250,.3);border-radius:10px;font-size:11.5px;color:#bfdbfe;line-height:1.6;display:flex;gap:10px;align-items:flex-start}
 .migbar button{flex-shrink:0;min-width:44px;min-height:36px;font-size:16px;color:#93c5fd}
 
+/* Carte chauffeur — volontairement noir sur blanc : cet écran se montre à un
+   inconnu, souvent en plein soleil, et le thème sombre y est illisible. */
+.drv-btn{display:inline-flex;align-items:center;gap:4px;font-size:11px;color:var(--amber);font-weight:600;min-height:32px;padding:4px 0}
+.drv{position:fixed;inset:0;z-index:60;background:#fff;color:#000;display:flex;flex-direction:column;
+  padding:calc(18px + env(safe-area-inset-top)) 20px calc(18px + env(safe-area-inset-bottom));overflow-y:auto}
+.drv-ask{font-size:17px;font-weight:600;color:#333;line-height:1.4;padding-bottom:14px;border-bottom:2px solid #000}
+.drv-name{font-size:30px;font-weight:800;line-height:1.2;margin-top:22px;overflow-wrap:anywhere}
+.drv-addr{font-size:26px;font-weight:600;line-height:1.35;margin-top:14px;overflow-wrap:anywhere}
+.drv-city{font-size:22px;font-weight:600;color:#444;margin-top:10px}
+.drv-thanks{font-size:20px;color:#333;margin-top:24px}
+.drv-note{margin-top:auto;padding-top:22px;font-size:12px;color:#666;line-height:1.5}
+.drv-close{margin-top:16px;width:100%;min-height:52px;background:#000;color:#fff;border-radius:12px;font-size:15px;font-weight:700}
+@media (min-width:640px){ .drv-name{font-size:38px} .drv-addr{font-size:32px} }
+
 .reset-btn{position:fixed;bottom:calc(16px + env(safe-area-inset-bottom));right:14px;min-height:44px;padding:10px 15px;background:var(--card);border:1px solid var(--border2);border-radius:22px;font-size:11.5px;color:var(--text2);box-shadow:0 4px 14px rgba(0,0,0,.5);z-index:20;display:flex;align-items:center;gap:6px;font-weight:600}
 
 @media (min-width:640px){
@@ -642,6 +656,103 @@ const TRIP = [
 }
 ];
 
+/* Adresses en vietnamien, à montrer au chauffeur d'un taxi de rue.
+   Clé = libellé exact de l'item. Règle tenue ici : quand le numéro de rue n'est
+   pas certain, on ne met que le nom vietnamien du lieu et le district. Un nom
+   juste sans numéro amène à destination ; un numéro inventé, non. */
+const VN_ADDR = {
+  // ---- Hanoi
+  "Lac Hoàn Kiếm + pagode Ngọc Sơn": { n:"Đền Ngọc Sơn — Hồ Hoàn Kiếm", a:"Phố Đinh Tiên Hoàng", c:"Hoàn Kiếm, Hà Nội" },
+  "Vieux quartier des 36 corporations": { n:"Phố cổ Hà Nội", a:"", c:"Hoàn Kiếm, Hà Nội" },
+  "Musée d'ethnographie du Vietnam": { n:"Bảo tàng Dân tộc học Việt Nam", a:"Đường Nguyễn Văn Huyên", c:"Cầu Giấy, Hà Nội" },
+  "Musée d'ethnographie": { n:"Bảo tàng Dân tộc học Việt Nam", a:"Đường Nguyễn Văn Huyên", c:"Cầu Giấy, Hà Nội" },
+  "Prison de Hỏa Lò": { n:"Di tích Nhà tù Hỏa Lò", a:"1 Hỏa Lò", c:"Hoàn Kiếm, Hà Nội" },
+  "D'lions Halal Restaurant": { n:"D'lions Halal Restaurant", a:"112 Hàng Trống", c:"Hoàn Kiếm, Hà Nội" },
+  "Chả Cá Thăng Long": { n:"Chả Cá Thăng Long", a:"19-21-31 Đường Thành", c:"Hoàn Kiếm, Hà Nội" },
+  "Café Giảng — egg coffee": { n:"Cà phê Giảng", a:"39 Nguyễn Hữu Huân", c:"Hoàn Kiếm, Hà Nội" },
+  "Temple de la Littérature": { n:"Văn Miếu — Quốc Tử Giám", a:"58 Quốc Tử Giám", c:"Đống Đa, Hà Nội" },
+  "Réserver les marionnettes sur l'eau dès le matin": { n:"Nhà hát Múa rối Thăng Long", a:"57B Đinh Tiên Hoàng", c:"Hoàn Kiếm, Hà Nội" },
+  "Tamarind Café": { n:"Tamarind Café", a:"80 Mã Mây", c:"Hoàn Kiếm, Hà Nội" },
+  "Quán Ăn Ngon": { n:"Quán Ăn Ngon", a:"18 Phan Bội Châu", c:"Hoàn Kiếm, Hà Nội" },
+  "Marché Đồng Xuân": { n:"Chợ Đồng Xuân", a:"", c:"Hoàn Kiếm, Hà Nội" },
+  "Rue Hàng Bạc, dernière chance argenterie": { n:"Phố Hàng Bạc", a:"", c:"Hoàn Kiếm, Hà Nội" },
+  "Rue Hàng Gai, soie et Tân Mỹ Design": { n:"Phố Hàng Gai", a:"", c:"Hoàn Kiếm, Hà Nội" },
+  "Partir 4 h avant le vol": { n:"Sân bay quốc tế Nội Bài", a:"", c:"Sóc Sơn, Hà Nội" },
+  "Dernier bún ou dernier egg coffee": { n:"Cà phê Giảng", a:"39 Nguyễn Hữu Huân", c:"Hoàn Kiếm, Hà Nội" },
+  "Déposer les bagages, douche si la chambre est prête": { n:"Ga Hà Nội", a:"120 Lê Duẩn", c:"Hoàn Kiếm, Hà Nội" },
+
+  // ---- Saigon
+  "Musée des vestiges de la guerre": { n:"Bảo tàng Chứng tích Chiến tranh", a:"28 Võ Văn Tần", c:"Quận 3, TP. Hồ Chí Minh" },
+  "Palais de la Réunification": { n:"Dinh Độc Lập", a:"135 Nam Kỳ Khởi Nghĩa", c:"Quận 1, TP. Hồ Chí Minh" },
+  "Poste centrale + Notre-Dame": { n:"Bưu điện Trung tâm Sài Gòn", a:"2 Công xã Paris", c:"Quận 1, TP. Hồ Chí Minh" },
+  "Mosquée Jamia Al-Musulman, rue Đông Du": { n:"Thánh đường Hồi giáo Jamia Al-Musulman", a:"66 Đông Du", c:"Quận 1, TP. Hồ Chí Minh" },
+  "D'Nyonya Halal": { n:"Nhà hàng D'Nyonya Halal", a:"Phố Đông Du", c:"Quận 1, TP. Hồ Chí Minh" },
+  "VN Halal Restaurant": { n:"Nhà hàng VN Halal", a:"Phố Đông Du", c:"Quận 1, TP. Hồ Chí Minh" },
+  "Déjeuner rue Đông Du": { n:"Phố Đông Du", a:"", c:"Quận 1, TP. Hồ Chí Minh" },
+  "Phở Hòa Pasteur": { n:"Phở Hòa Pasteur", a:"260C Pasteur", c:"Quận 3, TP. Hồ Chí Minh" },
+  "Immeuble 42 Nguyễn Huệ": { n:"Chung cư cà phê 42 Nguyễn Huệ", a:"42 Nguyễn Huệ", c:"Quận 1, TP. Hồ Chí Minh" },
+  "Bùi Viện le soir": { n:"Phố đi bộ Bùi Viện", a:"", c:"Quận 1, TP. Hồ Chí Minh" },
+  "Marché Tân Định + église rose": { n:"Chợ Tân Định", a:"Đường Hai Bà Trưng", c:"Quận 1, TP. Hồ Chí Minh" },
+  "Bitexco Skydeck ou le bar du 52ᵉ": { n:"Tòa nhà Bitexco Financial Tower", a:"2 Hải Triều", c:"Quận 1, TP. Hồ Chí Minh" },
+
+  // ---- Ben Tre
+  "Fruits du marché de Ben Tre": { n:"Chợ Bến Tre", a:"", c:"TP. Bến Tre" },
+  "Marché flottant de Cái Bè, départ 5 h 30": { n:"Chợ nổi Cái Bè", a:"", c:"Cái Bè, Tiền Giang" },
+  "Pagode Vĩnh Tràng, sur la route": { n:"Chùa Vĩnh Tràng", a:"", c:"Mỹ Phong, Mỹ Tho, Tiền Giang" },
+  "Sa Déc, la maison de l'Amant": { n:"Nhà cổ Huỳnh Thủy Lê", a:"255A Nguyễn Huệ", c:"Sa Đéc, Đồng Tháp" },
+
+  // ---- Da Nang
+  "Plage de Mỹ Khê l'après-midi": { n:"Bãi biển Mỹ Khê", a:"", c:"Sơn Trà, Đà Nẵng" },
+  "Musée de la sculpture Cham": { n:"Bảo tàng Điêu khắc Chăm", a:"02 đường 2 Tháng 9", c:"Hải Châu, Đà Nẵng" },
+  "Être sur la promenade Bạch Đằng à 20 h 15": { n:"Cầu Rồng — đường Bạch Đằng", a:"Đường Bạch Đằng", c:"Hải Châu, Đà Nẵng" },
+  "Se placer côté est, An Hải, près de la tête du dragon": { n:"Cầu Rồng, phía bờ đông", a:"Đường Trần Hưng Đạo", c:"An Hải, Sơn Trà, Đà Nẵng" },
+  "Dîner halal dans Hải Châu vers 19 h": { n:"Quận Hải Châu", a:"", c:"Đà Nẵng" },
+  "Provisions halal au marché Hàn": { n:"Chợ Hàn", a:"119 Trần Phú", c:"Hải Châu, Đà Nẵng" },
+  "Le pont Hàn pivote vers 23 h": { n:"Cầu sông Hàn", a:"", c:"Đà Nẵng" },
+
+  // ---- Ba Na / Hoi An
+  "Billet Ba Na Hills": { n:"Sun World Bà Nà Hills", a:"Thôn An Sơn, xã Hòa Ninh", c:"Hòa Vang, Đà Nẵng" },
+  "Commande des ao dai — 15 h 30 dernier délai": { n:"Phố may đo áo dài — đường Lê Lợi", a:"Đường Lê Lợi", c:"Phố cổ Hội An, Quảng Nam" },
+  "Mosque Restaurant Hoi An": { n:"Nhà hàng Mosque (Thánh đường Hồi giáo)", a:"Đường Nguyễn Thái Học", c:"Hội An, Quảng Nam" },
+  "Vieille ville aux lanternes en fin de soirée": { n:"Phố cổ Hội An", a:"", c:"Hội An, Quảng Nam" },
+  "Mỹ Sơn, départ 5 h": { n:"Thánh địa Mỹ Sơn", a:"Xã Duy Phú", c:"Duy Xuyên, Quảng Nam" },
+  "Scooter ou vélo jusqu'à An Bàng": { n:"Bãi biển An Bàng", a:"", c:"Hội An, Quảng Nam" },
+  "Matinée à An Bàng": { n:"Bãi biển An Bàng", a:"", c:"Hội An, Quảng Nam" },
+  "Forêt de cocotiers de Bảy Mẫu en bateau-panier": { n:"Rừng dừa Bảy Mẫu", a:"Xã Cẩm Thanh", c:"Hội An, Quảng Nam" },
+  "Bánh mì Phượng": { n:"Bánh mì Phượng", a:"2B Phan Châu Trinh", c:"Hội An, Quảng Nam" },
+  "Marché central de Hoi An": { n:"Chợ Hội An", a:"Đường Trần Phú", c:"Hội An, Quảng Nam" },
+  "Coucher de soleil à vélo dans Trà Quế": { n:"Làng rau Trà Quế", a:"", c:"Hội An, Quảng Nam" },
+
+  // ---- Hué
+  "Montagnes de Marbre en route": { n:"Ngũ Hành Sơn", a:"Đường Huyền Trân Công Chúa", c:"Ngũ Hành Sơn, Đà Nẵng" },
+  "S'asseoir côté droit dans le train": { n:"Ga Đà Nẵng", a:"202 Hải Phòng", c:"Thanh Khê, Đà Nẵng" },
+  "Gare 40 minutes avant le départ": { n:"Ga Huế", a:"2 Bùi Thị Xuân", c:"TP. Huế" },
+  "Citadelle dès l'ouverture, 7 h": { n:"Đại Nội Huế — Kinh thành", a:"Đường 23 Tháng 8", c:"TP. Huế" },
+  "Tombeau de Tự Đức": { n:"Lăng Tự Đức", a:"Phường Thủy Xuân", c:"TP. Huế" },
+  "Pagode Thiên Mụ": { n:"Chùa Thiên Mụ", a:"Phường Hương Long", c:"TP. Huế" },
+  "Pont Trường Tiền illuminé le soir": { n:"Cầu Trường Tiền", a:"", c:"TP. Huế" }
+};
+
+/* Nom vietnamien des villes, pour les cartes chauffeur des hôtels */
+const VN_CITY = {
+  "Hanoi": "Hà Nội",
+  "Saigon": "Quận 1, TP. Hồ Chí Minh",
+  "Ben Tre / Mékong": "Tỉnh Bến Tre",
+  "Da Nang": "Đà Nẵng",
+  "Hoi An": "Hội An, Quảng Nam",
+  "Hué": "TP. Huế"
+};
+
+/* Aéroports et gares, toujours accessibles depuis l'onglet Réf. */
+const VN_HUBS = [
+  { n:"Sân bay quốc tế Nội Bài", a:"", c:"Sóc Sơn, Hà Nội", fr:"Aéroport de Hanoi (HAN)" },
+  { n:"Sân bay quốc tế Tân Sơn Nhất", a:"", c:"Tân Bình, TP. Hồ Chí Minh", fr:"Aéroport de Saigon (SGN)" },
+  { n:"Sân bay quốc tế Đà Nẵng", a:"", c:"Hải Châu, Đà Nẵng", fr:"Aéroport de Da Nang (DAD)" },
+  { n:"Ga Hà Nội", a:"120 Lê Duẩn", c:"Hoàn Kiếm, Hà Nội", fr:"Gare de Hanoi" },
+  { n:"Ga Đà Nẵng", a:"202 Hải Phòng", c:"Thanh Khê, Đà Nẵng", fr:"Gare de Da Nang" },
+  { n:"Ga Huế", a:"2 Bùi Thị Xuân", c:"TP. Huế", fr:"Gare de Hué — départ du train de nuit" }
+];
+
 /* Migration : anciennes clés positionnelles (vn-trip-2026) → titres de l'ancienne app.
    Seules les entrées dont le libellé survit dans le nouvel itinéraire sont listées. */
 const LEGACY_MAP = {
@@ -800,6 +911,37 @@ function esc(s){
   if (s === undefined || s === null) return "";
   return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 }
+/* ---- Carte chauffeur ---- */
+let DRV = [];   // rempli à chaque rendu, index passé en data-drv
+
+function drvBtn(card){
+  if (!card || !card.n) return "";
+  const i = DRV.push(card) - 1;
+  return '<button class="drv-btn" data-drv="' + i + '">🚕 Chauffeur</button>';
+}
+
+function openDriver(card){
+  const el = document.createElement("div");
+  el.className = "drv";
+  el.id = "drvOverlay";
+  el.setAttribute("role", "dialog");
+  el.setAttribute("aria-modal", "true");
+  el.innerHTML = '<div class="drv-ask">Làm ơn đưa tôi đến địa chỉ này.</div>'
+    + '<div class="drv-name">' + esc(card.n) + '</div>'
+    + (card.a ? '<div class="drv-addr">' + esc(card.a) + '</div>' : "")
+    + '<div class="drv-city">' + esc(card.c) + '</div>'
+    + '<div class="drv-thanks">Xin cảm ơn!</div>'
+    + '<div class="drv-note">Montre cet écran au chauffeur. Monte la luminosité au maximum. '
+    + 'Si l\'adresse ne dit rien au chauffeur, le nom du lieu en gros suffit en général : demande-lui de le lire à voix haute pour vérifier qu\'il a compris.</div>'
+    + '<button class="drv-close">Fermer</button>';
+  document.body.appendChild(el);
+  el.querySelector(".drv-close").focus();
+}
+function closeDriver(){
+  const el = document.getElementById("drvOverlay");
+  if (el) el.remove();
+}
+
 function passFilter(it){
   if (state.filter === "urgent") return !!it.urgent;
   if (state.filter === "halal")  return it.halal !== undefined && it.halal !== false;
@@ -832,7 +974,10 @@ function renderItem(it, key){
     + '<div class="item-head"><div class="item-title">' + esc(it.t) + '</div>' + tagsFor(it) + '</div>'
     + (it.n ? '<p class="item-desc">' + esc(it.n) + '</p>' : "")
     + '<div class="item-footer">'
-    + (it.m ? '<a class="maps-link" href="' + mapsUrl(it.m) + '" target="_blank" rel="noopener">📍 Maps</a>' : '<span></span>')
+    + '<span style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">'
+    + (it.m ? '<a class="maps-link" href="' + mapsUrl(it.m) + '" target="_blank" rel="noopener">📍 Maps</a>' : "")
+    + drvBtn(VN_ADDR[it.t])
+    + '</span>'
     + (it.p ? '<span class="item-price">' + esc(it.p) + '</span>' : "")
     + '</div></div></div></div>';
 }
@@ -874,7 +1019,10 @@ function renderHotels(d){
       + '<div class="hotel-addr">' + esc(h.addr) + '</div>'
       + '<p class="hotel-why">' + esc(h.why) + '</p>'
       + '<div class="hotel-foot">'
+      + '<span style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">'
       + '<a class="maps-link" href="' + mapsUrl(h.name + " " + d.hotelsCity) + '" target="_blank" rel="noopener">📍 Maps</a>'
+      + drvBtn({ n:h.name, a:h.addr, c:VN_CITY[d.hotelsCity] || d.hotelsCity })
+      + '</span>'
       + '<span class="hotel-price">' + esc(h.price) + '</span>'
       + '</div></div></div></div>';
   });
@@ -963,6 +1111,12 @@ function renderDay(d){
 function renderRef(){
   return ''
   + offlineBadgeHtml()
+
+  + '<div class="ref"><div class="ref-title">🚕 Gares et aéroports</div>'
+  + '<p>À montrer à un chauffeur de taxi de rue. Grab, lui, a besoin de réseau : quand tu as de la data, cherche le lieu directement dans Grab, sa base d\'adresses est à jour et meilleure que tout ce qui est figé ici.</p>'
+  + VN_HUBS.map(h => '<div class="kv"><span class="kv-k">' + esc(h.fr) + '</span>'
+      + drvBtn(h) + '</div>').join("")
+  + '</div>'
   + '<div class="ref"><div class="ref-title">🆘 Urgences</div>'
   + '<div class="kv"><span class="kv-k">Police</span><span class="kv-v">113</span></div>'
   + '<div class="kv"><span class="kv-k">Pompiers</span><span class="kv-v">114</span></div>'
@@ -1047,6 +1201,7 @@ function kv(k,v){
 /* ============================ VUE ============================ */
 
 function render(){
+  DRV = [];                 // les index data-drv sont recalculés à chaque rendu
   const stats = totalStats();
   const today = todayDayNumber();
   const until = daysUntilStart();
@@ -1114,6 +1269,13 @@ function render(){
 }
 
 /* ============================ ÉVÉNEMENTS ============================ */
+
+document.body.addEventListener("click", e => {
+  if (e.target.closest(".drv-close")) { closeDriver(); return; }
+  const drv = e.target.closest("[data-drv]");
+  if (drv) { const c = DRV[parseInt(drv.getAttribute("data-drv"),10)]; if (c) openDriver(c); return; }
+});
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeDriver(); });
 
 document.getElementById("app").addEventListener("click", e => {
   const check = e.target.closest("[data-key]");

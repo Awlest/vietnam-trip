@@ -7,7 +7,10 @@
    - en ligne    -> réponse instantanée depuis le cache + mise à jour silencieuse
    Les liens Google Maps sortent du scope et ne sont jamais interceptés. */
 
-const CACHE = "vietnam-13j-v3";
+/* Bumper cette version à chaque modification du contenu de l'app : c'est ce
+   qui fait détecter la nouvelle version au navigateur et afficher la barre
+   « Recharger » à l'utilisateur. */
+const CACHE = "vietnam-13j-v4";
 
 const ASSETS = [
   "./",
