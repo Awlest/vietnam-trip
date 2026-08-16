@@ -1,194 +1,101 @@
-# 🇻🇳 Vietnam 14j — App de voyage offline
+# 🇻🇳 Vietnam 13j — App de voyage offline
 
-App interactive pour votre voyage du **17 au 31 août 2026**. Fonctionne **100% hors ligne** une fois la page chargée.
+App interactive pour le voyage du **18 au 30 août 2026**. Fonctionne **100 % hors ligne** une fois la page chargée.
 
-## ✨ Fonctionnalités
+**Séquence :** Hanoi → Saigon → Ben Tre → Saigon → Da Nang → Hoi An → Hué → 🌙 couchette de nuit → Hanoi
 
-- **14 jours détaillés** : Hanoi → Ninh Binh → Hoi An → Saigon → Mui Ne → Mékong → Da Lat → Hanoi
-- **5 sections par jour** : 🎯 Activités · 🍜 Nourriture · 🛍️ Shopping · 🏨 Hôtel · 💎 Bonus secrets
-- **5 bonus secrets** par jour (food caché, lieux insolites, must-see, expériences uniques)
-- **Checkboxes persistantes** via localStorage — vos cochés sont sauvés entre les sessions
-- **Bouton Maps** sur chaque adresse → ouvre Google Maps directement
-- **Tags intensité** : 🛋️ Chill / 🚶 Modéré / 🚴 Actif / ⛰️ Sportif
-- **Tags shopping** : Montre vintage, Montre neuve, Or, Argenterie, Sur-mesure, Perles, Soie, Textile/Mode, Ethnique, Bazar, Artisanat
-- **Tags halal** : HALAL ✓ (certifié) / DEMANDER (option possible)
-- **Plan B typhon** : si Hoi An menacée fin août, swap vers plus de Sud
-- **Reset button** en bas à droite pour tout recocher
+L'itinéraire a été inversé en août 2026 : on n'attaque plus par le nord, on atterrit à Hanoi, on file au sud en avion, et on remonte en terminant par un train couchette Hué → Hanoi.
 
-## 📲 Installation sur téléphone (3 méthodes)
+## ✨ Ce que fait l'app
 
-### Méthode 1 — La plus simple (recommandée)
-1. Téléchargez/copiez le fichier `vietnam-trip.html` joint à ce message
-2. **iPhone** : envoyez-le sur votre Mail/iCloud Drive, ouvrez-le depuis l'app Fichiers → Safari l'ouvre
-3. **Android** : envoyez-le sur Drive/Mail, ouvrez avec Chrome
-4. Dans le navigateur : **Partager → Sur l'écran d'accueil** (iOS) ou **⋮ → Ajouter à l'écran** (Android)
-5. Une icône Vietnam 🇻🇳 apparaît, vous l'ouvrez comme une vraie app
+- **13 journées** numérotées, du mardi 18 au dimanche 30 août
+- **Indice d'intensité** sur 5 points par journée — pour voir d'un coup d'œil si deux journées lourdes s'enchaînent
+- **Plan B** (météo) visible sur chaque jour, et **Plan B′** (typhon, vol annulé, train complet, maladie) repliable
+- **Trois options d'hôtel par ville** : 📸 instagrammable · 💰 économique mais sympa · 🔑 secret bien gardé
+- **Les 7 réservations** par ordre d'urgence, en tête de l'app
+- **Badges** : halal ✓ / demander, à réserver, ☔ tient sous la pluie
+- **Filtres** : Tout · À réserver · Halal · Sous la pluie · Reste à faire · Aujourd'hui
+- **Ouverture automatique** sur la journée du jour pendant le voyage, compte à rebours avant
+- **Cases à cocher persistantes** (`localStorage`), progression globale et par journée
+- **Onglet Réf.** : urgences, vietnamien utile, argent, budget ventilé, apps, surveillance météo, halal en pratique
+- **Marqueur fête nationale** sur les jours 12 et 13 (29 août → 2 septembre)
 
-### Méthode 2 — Via email
-1. Envoyez-vous le fichier .html par mail
-2. Ouvrez la pièce jointe sur votre téléphone
-3. Même flow que méthode 1 pour l'épingler
+## 📲 Installation sur téléphone
 
-### Méthode 3 — GitHub Pages / hébergement
-Si vous voulez le partager (avec madame), uploadez le .html sur GitHub Pages (gratuit) ou n'importe quel hébergeur. URL accessible partout.
+Ouvrir <https://awlest.github.io/vietnam-trip/> puis **Partager → Sur l'écran d'accueil** (iOS) ou **⋮ → Ajouter à l'écran** (Android). Une icône 🇻🇳 apparaît et s'ouvre comme une vraie app.
+
+Une fois la page ouverte une première fois, elle fonctionne en mode avion. Les cases cochées restent tant qu'on n'efface pas les données du site dans le navigateur.
 
 ## ⚙️ Fonctionnement offline
 
-- Aucune dépendance externe (pas de CDN, pas d'API)
-- Toutes les données et le code sont dans le fichier .html
-- Une seule chose a besoin du réseau : les **liens Google Maps** qui ouvrent l'app Maps externe
-- **Sauvegarde locale** : votre progression est stockée dans le navigateur via `localStorage`, persistera tant que vous n'effacez pas les données du site
+- Aucune dépendance externe : pas de CDN, pas d'API, pas de `fetch`, pas de police distante
+- Tout le contenu, le CSS et le JS sont dans le seul fichier `index.html` (~93 KB)
+- Une seule chose a besoin du réseau : les boutons **📍 Maps**, qui ouvrent une **recherche** Google Maps
 
-## 🔧 Personnalisation (optionnel)
+### Pourquoi des recherches Maps et pas des adresses
 
-Pour modifier le contenu, ouvrez le `.html` avec un éditeur de texte. Tout est dans la constante `TRIP` au début du `<script>`. Format JS standard.
+Les réorganisations administratives provinciales de 2025-2026 ont périmé beaucoup d'adresses écrites : rues renumérotées, communes fusionnées, provinces redécoupées. Une adresse figée dans une app hors ligne devient fausse sans prévenir. Les noms de lieux, eux, restent trouvables — d'où le choix systématique de la recherche.
 
-Pour changer la couleur thème, modifiez les variables CSS dans `:root` (lignes 17-22 du `<style>`).
+Le geste utile sur place : dès qu'il y a du wifi, ouvrir les lieux du lendemain et les **épingler en favoris** dans Google Maps. Un favori fonctionne hors ligne, une recherche non.
 
----
+## 🔧 Personnalisation
 
-## 📄 Code complet
+Tout le contenu est dans la constante `TRIP` au début du `<script>`, une entrée par journée :
 
-> Si vous préférez recopier le code que d'utiliser le `.html` fourni : tout est ci-dessous. Sauvegardez dans un fichier `vietnam-trip.html` et ouvrez-le dans n'importe quel navigateur.
-
-```html
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#020617">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Vietnam 14j">
-<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23DA251D'/%3E%3Cpolygon fill='%23FFFF00' points='50,15 60,42 88,42 65,58 75,85 50,68 25,85 35,58 12,42 40,42'/%3E%3C/svg%3E">
-<title>Vietnam 14j • 17-31 août</title>
-<style>
-[... CSS complet ...]
-</style>
-</head>
-<body>
-<div id="app"></div>
-<button class="reset-btn" onclick="resetProgress()">↻ Reset</button>
-<script>
-const TRIP = [/* 14 jours de données complètes */];
-/* ... rendu vanilla JS, localStorage, toggle, etc. ... */
-</script>
-</body>
-</html>
+```js
+{
+  n: 1, date: "Mar 18 août", code: "HAN", city: "Hanoi",
+  title: "Atterrissage", line: "Résumé en une phrase.",
+  intensity: 1,              // 1 à 5, affiché en cinq points
+  nightTrain: false,         // true au jour 11
+  peakAlert: false,          // true aux jours 12 et 13
+  hotels: { insta: {...}, eco: {...}, secret: {...} },
+  planB: "…", planBp: "…",
+  groups: [ { title: "Faire", items: [ { t, n, p, m, halal, urgent, rain } ] } ]
+}
 ```
 
-> **⚠️ Le code complet (~51 KB, 684 lignes) est dans le fichier `vietnam-trip.html` ci-joint.** Le coller intégralement ici doublerait la taille de ce document inutilement. Téléchargez directement le fichier joint.
+Champs d'un item : `t` libellé · `n` note · `p` prix · `m` requête Maps · `halal` (`true` ou `"option"`) · `urgent` badge à réserver · `rain` tient sous la pluie.
 
----
+Les 7 réservations sont dans `RESAS`, le thème dans `:root` en haut du `<style>`.
 
-## 🗒️ Notes pratiques pour le voyage
+`vietnam-trip.html` est une copie identique de `index.html`, conservée pour les anciens signets. Garder les deux synchronisées après modification.
 
-### À réserver MAINTENANT (avant départ)
-- Vols intérieurs Hanoi-Da Nang, Da Nang-Saigon, Da Lat-Hanoi (Vietnam Airlines pour flexibilité)
-- 3 nuits Hoi An (Maison Vy ou An Bang Hideaway) — se remplit en août
-- 1ère et dernière nuit Hanoi (Essence Hanoi Hotel & Spa)
+## 💾 Persistance et migration
 
-### À réserver 24-48h à l'avance
-- Hôtels Mékong, Mui Ne, Da Lat (tarifs annulables sur Agoda/Booking)
-- Cours cuisine Tra Que (chez Ruby)
-- Excursion My Son privée tôt le matin
-- Spectacle Hoi An Memories
+- Clé actuelle : `vn-trip-2026-v2`, avec des identifiants stables dérivés du titre (`d7:billet-ba-na-hills`) plutôt que positionnels
+- L'ancienne clé `vn-trip-2026` utilisait des index de position (`d1-0`) : après l'inversion de l'itinéraire, ces index ne désignaient plus les mêmes étapes
+- Au premier chargement, l'app relit l'ancienne clé et **remigre par titre** les 20 items qui existent dans les deux versions. Les coches portant sur des étapes supprimées ne sont pas transférées, et une bannière le dit explicitement plutôt que de faire semblant
 
-### Last-minute / sur place
-- Scooters journaliers
-- Restaurants (sauf Mosque Restaurant Hoi An week-end, à réserver)
-- Tailleur Yaly Couture (J4 sur place direct)
+## 🗓️ Les 7 réservations, par ordre d'urgence
 
-### Plan B typhon
-Si alerte typhon Centre annoncée à J-5 :
-1. Annulez les 2-3 dernières nuits Hoi An (tarifs flexibles)
-2. Avancez le vol Da Nang→Saigon
-3. Ajoutez nuits au Sud (Mui Ne ou Da Lat)
+1. **Couchette Hué → Hanoi, nuit du 28/08** — SE2 ou SE4, cabine 4 couchettes molles, les deux basses, sur `dsvn.vn`. Veille du week-end de la fête nationale : c'est la plus tendue du voyage.
+2. **Hôtel Hanoi, nuits du 29 et 30/08** — pic de tourisme domestique.
+3. **Vols Hanoi → Saigon (19/08, après 10 h) et Saigon → Da Nang (23/08, le matin).**
+4. **Hôtel Da Nang, nuit du 23/08** — les chambres avec vue sur le pont partent en premier.
+5. **Billets Ba Na Hills + voiture privée du 24/08** — QR enregistré hors ligne.
+6. **Hôtels Hoi An (24 → 26) et Hué (27)** — en annulation gratuite.
+7. **Assurance Revolut Ultra** — vérifier rapatriement et conduite de scooter.
 
-### Halal — adresses clés
-- **Hanoi** : D'lions (112 Hang Trong), Tamarind Café (80 Ma May)
-- **Hoi An** : Mosque Restaurant (en face mosquée Cham, Nguyen Thai Hoc)
-- **Saigon** : Quartier Dong Du — D'Nyonya, VN Halal (mosquée Jamia Al-Musulman)
-- **Ailleurs** : seafood + végétarien (com chay). Mots-clés : *không thịt lợn* (sans porc), *chay* (végé)
+## ⚠️ Les trois points durs
 
-### Textile / Vêtements — éviter les contrefaçons
-**Règles d'or pour acheter vrai (et de qualité)** :
-- ❌ ÉVITER : Saigon Square, Ben Thanh (clothes), marchés touristiques pour "marques" (Nike, Adidas, Lacoste, Polo, etc.) = 99% contrefaçon
-- ✅ PRÉFÉRER : marques **vietnamiennes originales** — souvent excellent rapport qualité/prix, designs uniques, pas de contrefaçon par définition
-
-**Top marques vietnamiennes contemporaines (sans contrefaçon possible)** :
-- **Metiseko** (Hanoi + Hoi An) — soie/coton bio, prints originaux, prix moyens
-- **Magonn** (Hanoi) — womenswear contemporain
-- **Marie-Linh** (Hanoi) — franco-vietnamien, coupes parfaites
-- **L'Usine** (Saigon) — multimarques créateurs locaux
-- **Catherine Denoual Maison** (Saigon) — luxe brodé main
-- **Saigon Kitsch** (Saigon) — fun, abordable, original
-- **Ginkgo T-shirts** (Hanoi/Saigon) — tees coton designs Vietnam
-- **Things of Substance** (Hanoi) — multimarques sélection pointue
-
-**Sur-mesure (Hoi An est LE spot)** :
-- **Yaly Couture** — premium, tissus italiens, costumes hommes 150-400€
-- **BeBe Tailor** — alternative qualité égale parfois moins chère
-- **A Dong Silk** — robes en lin/soie, ao dai
-- Compter 24-48h, 2 essayages
-
-**Textiles ethniques (authentiques) à Da Lat** :
-- Marché de nuit Da Lat — minorités K'Ho et Lat, tissages main
-- Tricot et laines Da Lat (climat frais favorise cette spécialité)
-
-**Comment repérer la qualité** :
-- Touchez le tissu : la vraie soie est chaude, glisse, mate (pas brillante plastique)
-- Vérifiez les coutures intérieures
-- Demandez à voir l'étiquette d'origine "Made in Vietnam"
-- Vraie marque vietnamienne = pas de logo Nike/Adidas dessus !
-- Sur-mesure : insistez sur 2 essayages minimum
-
-### Mots vietnamiens utiles
-| Français | Vietnamien |
-|---|---|
-| Bonjour | Xin chào |
-| Merci | Cảm ơn |
-| Combien ? | Bao nhiêu? |
-| Trop cher | Đắt quá |
-| Sans porc | Không thịt lợn |
-| Végétarien | Chay |
-| Halal | Halal (compris) |
-| Délicieux | Ngon |
-| Toilettes ? | Nhà vệ sinh? |
-
-### Numéros utiles
-- Urgence générale : 113
-- Ambulance : 115
-- Pompiers : 114
-- Ambassade France Hanoi : +84 24 3944 5700
-- Ambassade France HCMC : +84 28 3520 6800
-
-### Apps à installer avant départ
-- **Grab** (taxi/scooter, Uber local) — inscription requise
-- **Google Maps** (offline maps des régions à télécharger en wifi)
-- **Google Translate** (pack vietnamien offline)
-- **Vietjet Air** / **Vietnam Airlines** (gestion vols)
-- **XE Currency** (taux change offline)
-- **Booking** / **Agoda** (hôtels last-minute)
-
----
+- **Le pont du Dragon ne joue que vendredi, samedi et dimanche à 21 h.** Le dimanche 23 août est la seule occasion du séjour : les jours suivants à Hoi An sont un lundi, un mardi et un mercredi.
+- **Les jours 6, 7 et 8 forment un bloc à 4-5-4.** Le jour 9 est la récupération, ne pas le remplir.
+- **Halal :** faciles à Saigon (rue Đông Du), Da Nang (Hải Châu) et Hoi An (Mosque Restaurant). Difficiles dans le delta, au sommet de Ba Na et pendant les 13 h de train — dans les trois cas, acheter avant.
 
 ## 🎒 Checklist matériel
 
-- [ ] Permis international (mention A pour scooter)
-- [ ] Adaptateur prise Vietnam (type A, B, C — souvent compatibles UE)
-- [ ] Crème solaire SPF 50+
-- [ ] Anti-moustique DEET 50%
-- [ ] Pharmacie : Imodium, paracétamol, désinfectant
-- [ ] K-way léger (averses fréquentes)
-- [ ] Chaussures fermées + tongs
-- [ ] Power bank
-- [ ] Lampe frontale (Hang Mua dawn, grottes)
-- [ ] Petit cash USD en backup (~200$)
-- [ ] Photocopies passeport + carte bleue
-- [ ] Carte Revolut/Wise/N26 pour retraits
+- [ ] Permis international (mention A pour le scooter) + vérifier que l'assurance couvre le deux-roues
+- [ ] Adaptateur (types A, B, C — souvent compatibles UE)
+- [ ] Crème solaire SPF 50+, anti-moustique DEET
+- [ ] Pharmacie : réhydratation orale, Imodium, paracétamol, désinfectant
+- [ ] Poncho plutôt que parapluie (averses fortes et courtes)
+- [ ] Une couche longue pour le train couchette : la climatisation ne se coupe pas
+- [ ] Kit de nuit train : bouchons, masque, lingettes, papier toilette, tongs
+- [ ] Batterie externe
+- [ ] Photocopies passeport + carte, ~200 $ en backup
+- [ ] Carte Revolut/Wise/N26 pour les retraits
 
 ---
 
-Bon voyage 🌏 ✈️
+Bon voyage 🌏
