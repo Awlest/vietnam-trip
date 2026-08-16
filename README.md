@@ -29,8 +29,18 @@ Une fois la page ouverte une première fois, elle fonctionne en mode avion. Les 
 ## ⚙️ Fonctionnement offline
 
 - Aucune dépendance externe : pas de CDN, pas d'API, pas de `fetch`, pas de police distante
-- Tout le contenu, le CSS et le JS sont dans le seul fichier `index.html` (~93 KB)
+- Tout le contenu, le CSS et le JS sont dans le seul fichier `index.html` (~97 KB)
 - Une seule chose a besoin du réseau : les boutons **📍 Maps**, qui ouvrent une **recherche** Google Maps
+
+### Le service worker
+
+Une page HTML autonome n'est **pas** hors ligne pour autant : taper l'icône de l'écran d'accueil en mode avion envoie le navigateur chercher le fichier sur le réseau, et donne une page blanche. C'était le cas jusqu'en août 2026.
+
+`sw.js` corrige ça. Il garde une copie locale de l'app et la sert sans connexion, en cache d'abord avec rafraîchissement en arrière-plan. Les requêtes hors origine (Google Maps) ne sont jamais interceptées.
+
+**Vérification :** l'onglet **Réf.** affiche en tête une ligne « Hors ligne : prêt ✓ » en vert. Ouvrir l'app une fois avec du réseau, vérifier la ligne, puis passer en mode avion et rouvrir l'icône.
+
+**Après un déploiement :** le service worker détecte la nouvelle version au chargement suivant et affiche une barre « Recharger » en bas d'écran. Bump `CACHE` dans `sw.js` à chaque modification de contenu pour forcer le renouvellement.
 
 ### Pourquoi des recherches Maps et pas des adresses
 

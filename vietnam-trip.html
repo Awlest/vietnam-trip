@@ -7,6 +7,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Vietnam 13j">
+<link rel="manifest" href="./manifest.json">
+<link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
 <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23DA251D'/%3E%3Cpolygon fill='%23FFFF00' points='50,15 60,42 88,42 65,58 75,85 50,68 25,85 35,58 12,42 40,42'/%3E%3C/svg%3E">
 <title>Vietnam 13j • 18-30 août 2026</title>
 <style>
@@ -960,6 +962,7 @@ function renderDay(d){
 
 function renderRef(){
   return ''
+  + offlineBadgeHtml()
   + '<div class="ref"><div class="ref-title">🆘 Urgences</div>'
   + '<div class="kv"><span class="kv-k">Police</span><span class="kv-v">113</span></div>'
   + '<div class="kv"><span class="kv-k">Pompiers</span><span class="kv-v">114</span></div>'
@@ -1166,8 +1169,80 @@ document.getElementById("resetBtn").addEventListener("click", () => {
   }
 });
 
+/* ==================== HORS LIGNE (service worker) ====================
+   Sans ça, taper l'icône de l'écran d'accueil en mode avion donne une page
+   blanche : le navigateur va rechercher le fichier sur le réseau. Le service
+   worker garde une copie locale et sert la page sans connexion. */
+
+let offlineState = "unsupported";   // unsupported | pending | ready | local
+
+function refreshOfflineBadge(){
+  const el = document.getElementById("offlineBadge");
+  if (el) el.outerHTML = offlineBadgeHtml();
+}
+function offlineBadgeHtml(){
+  const map = {
+    ready:      ["#6ee7b7", "rgba(52,211,153,.12)", "rgba(52,211,153,.3)",
+                 "Hors ligne : prêt ✓", "L'app est enregistrée sur ce téléphone. Elle s'ouvrira en mode avion, sans réseau."],
+    pending:    ["#fcd34d", "rgba(251,191,36,.1)", "rgba(251,191,36,.3)",
+                 "Hors ligne : en cours…", "Enregistrement en cours. Recharge la page une fois, encore connecté, pour terminer."],
+    local:      ["#93c5fd", "rgba(96,165,250,.1)", "rgba(96,165,250,.3)",
+                 "Fichier local", "La page est ouverte depuis un fichier : elle fonctionne déjà sans réseau."],
+    unsupported:["#fdba74", "rgba(251,146,60,.1)", "rgba(251,146,60,.3)",
+                 "Hors ligne : non garanti", "Ce navigateur ne gère pas la mise en cache hors ligne. Ouvre le lien dans Safari ou Chrome, pas dans un navigateur intégré à une app."]
+  };
+  const m = map[offlineState] || map.unsupported;
+  return '<div id="offlineBadge" class="ref" style="color:' + m[0] + ';background:' + m[1] + ';border-color:' + m[2] + '">'
+    + '<div class="ref-title" style="color:' + m[0] + '">📶 ' + esc(m[3]) + '</div>'
+    + '<p style="color:' + m[0] + '">' + esc(m[4]) + '</p>'
+    + '<p style="color:' + m[0] + '"><strong>À faire avant le départ :</strong> ouvre cette page une fois avec du réseau et vérifie que cette ligne affiche « prêt ». Ensuite, mets le téléphone en mode avion et rouvre l\'icône pour t\'en assurer toi-même.</p>'
+    + '</div>';
+}
+
+function initOffline(){
+  if (location.protocol === "file:") { offlineState = "local"; return; }
+  if (!("serviceWorker" in navigator)) { offlineState = "unsupported"; return; }
+
+  offlineState = navigator.serviceWorker.controller ? "ready" : "pending";
+
+  navigator.serviceWorker.register("./sw.js").then(reg => {
+    if (navigator.serviceWorker.controller) { offlineState = "ready"; refreshOfflineBadge(); }
+
+    // une nouvelle version a été déployée pendant que l'app tournait
+    reg.addEventListener("updatefound", () => {
+      const sw = reg.installing;
+      if (!sw) return;
+      sw.addEventListener("statechange", () => {
+        if (sw.state === "installed") {
+          if (navigator.serviceWorker.controller) showUpdateBar();
+          else { offlineState = "ready"; refreshOfflineBadge(); }
+        }
+      });
+    });
+  }).catch(() => { offlineState = "unsupported"; refreshOfflineBadge(); });
+
+  navigator.serviceWorker.addEventListener("controllerchange", () => {
+    offlineState = "ready";
+    refreshOfflineBadge();
+  });
+}
+
+function showUpdateBar(){
+  if (document.getElementById("updBar")) return;
+  const bar = document.createElement("div");
+  bar.id = "updBar";
+  bar.className = "migbar";
+  bar.style.cssText = "position:fixed;left:0;right:0;bottom:0;margin:0;border-radius:0;z-index:40;"
+    + "padding-bottom:calc(11px + env(safe-area-inset-bottom))";
+  bar.innerHTML = '<div>Une version mise à jour de l\'itinéraire est disponible.</div>'
+    + '<button id="updBtn" style="font-size:12px;font-weight:700;padding:0 10px">Recharger</button>';
+  document.body.appendChild(bar);
+  document.getElementById("updBtn").addEventListener("click", () => location.reload());
+}
+
 /* ============================ DÉMARRAGE ============================ */
 
+initOffline();
 loadState();
 const t = todayDayNumber();
 state.activeDay = t || 1;
