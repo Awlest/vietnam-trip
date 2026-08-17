@@ -122,6 +122,9 @@ details summary{list-style:none}
 
 /* Hotels */
 .hotel-card{background:var(--card);border:1px solid var(--border);border-radius:12px;margin-bottom:8px}
+.hotel-card.booked{background:rgba(52,211,153,.09);border-color:rgba(52,211,153,.45)}
+.booked-tag{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--emerald);margin-bottom:3px}
+.booked-addr{font-size:15px;font-weight:700;color:var(--text);margin-top:3px;overflow-wrap:anywhere}
 .hotel-top{display:flex;gap:2px;align-items:flex-start}
 .hotel-body{flex:1;min-width:0;padding:12px 12px 12px 2px}
 .hotel-gamme{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:3px}
@@ -238,7 +241,8 @@ const RESAS = [
     d:"SE2 ou SE4, cabine 4 couchettes molles climatisée, les deux couchettes basses. Sur dsvn.vn. Veille du week-end de la fête nationale : c'est la réservation la plus tendue du voyage. Astuce : si les deux couchettes hautes sont encore libres à J-3, achète-les — la cabine devient privée pour environ 145 € au lieu de 160 € en wagon VIP.",
     m:"Ga Huế railway station" },
   { id:"hotel-han", t:"Hôtel Hanoi, nuits du 29 et 30/08",
-    d:"Pic de tourisme domestique pour la fête nationale. À boucler avant tout le reste des hôtels. Vérifie aussi l'heure du vol retour du 30 : si tu décolles dans la soirée du 30, la nuit du 30 ne sert à rien — c'est le seul point du programme qui reste à trancher." },
+    d:"La nuit du 18 est réservée au 74 Hàng Gà, mais pas celles du retour. Elles tombent en plein pont de la fête nationale, avec le pic de tourisme domestique : c'est la deuxième réservation la plus tendue du voyage après la couchette. Vérifie aussi l'heure du vol retour du 30 : si tu décolles dans la soirée du 30, la nuit du 30 ne sert à rien — c'est le seul point du programme qui reste à trancher.",
+    m:"74 Hang Ga Hoan Kiem Hanoi" },
   { id:"vols", t:"Vol Hanoi → Saigon du 19/08 et Saigon → Da Nang du 23/08",
     d:"Départ après 10 h le 19 (on ne se lève pas tôt le lendemain de l'arrivée). Vol du matin le 23, pour avoir l'après-midi à Da Nang avant le pont du Dragon. VietJet, Bamboo et Vietnam Airlines font les deux lignes." },
   { id:"hotel-dad", t:"Hôtel Da Nang, nuit du 23/08",
@@ -257,8 +261,12 @@ const TRIP = [
   n:1, date:"Mar 18 août", code:"HAN", city:"Hanoi", title:"Atterrissage",
   line:"On ne force rien : SIM, cash, le lac, le vieux quartier, et au lit tôt.",
   intensity:1, weather:"32 °C · averses possibles",
-  transport:{ icon:"✈️", text:"Arrivée vol international à Nội Bài. Grab ~350 000 VND / 45 min, ou bus express 86 à 45 000 VND par personne." },
-  hotelsCity:"Hanoi", hotelsNights:"nuits du 18, 29 et 30 août",
+  transport:{ icon:"✈️", text:"Arrivée à Nội Bài, puis 27 km jusqu'au 74 Hàng Gà : Grab ~350 000 VND en 40 à 50 min. Le bus express 86 fait le même trajet pour 45 000 VND par personne mais te dépose au bord du lac, à 12 min à pied de l'hôtel — pratique sans valises, moins avec." },
+  hotelsCity:"Hanoi", hotelsNights:"nuit du 18 réservée · 29 et 30 à confirmer",
+  booked:{
+    addr:"74 Phố Hàng Gà", city:"Hoàn Kiếm, Hà Nội", nights:"nuit du 18 août",
+    note:"Vieux quartier, partie nord-ouest. Compte 12 à 15 minutes à pied jusqu'au lac Hoàn Kiếm, 8 minutes jusqu'au marché Đồng Xuân, et environ 5 minutes jusqu'à Phùng Hưng où se trouvent les cafés de Train Street — la journée 1 se fait donc entièrement à pied depuis la porte. Depuis Nội Bài, 27 km et 40 à 50 minutes. Bon à savoir : la rue Bát Đàn, à deux minutes, abrite l'un des phở les plus réputés de Hanoi, avec la file du matin qui va avec."
+  },
   hotels:{
     insta:{ name:"Peridot Grand Luxury Boutique Hotel", addr:"33 Đường Thành", price:"70–95 €",
       why:"4,8/5 sur plus de 1 500 avis. Piscine, jacuzzi, bar en rooftop, hall classique très photogénique. Le spa est réputé pour son rapport qualité-prix." },
@@ -269,6 +277,7 @@ const TRIP = [
     secret:{ name:"Dong Xuan Boutique Hotel", addr:"68 Nguyễn Thiếp", price:"45–60 €",
       why:"4,9/5 mais seulement ~200 avis : quasi inconnu des circuits. Chambres spacieuses, surclassements fréquents, à côté du marché Đồng Xuân donc au nord du vieux quartier, plus calme le soir." }
   },
+  hotelsIntro:"La nuit du 18 est réservée, au 74 Hàng Gà. Les quatre gammes ci-dessous ne servent donc plus que pour le retour, les nuits du 29 et 30 — celles qui tombent en plein week-end de fête nationale et qu'il faut boucler en priorité. Si tu t'es plu au 74 Hàng Gà, le plus simple reste de leur redemander ces deux nuits directement.",
   hotelSafe:"Autres valeurs sûres si complet : Solaria Tesori (4,9), CLASSYC (4,9), GM Premium (4,9), Soleil Boutique (4,8, piscine en rooftop).",
   hotelAvoid:"À écarter : Madelise Adora — plaintes répétées de moisissure, cafards et chambres sans fenêtre. Moonlit Suites — ménage défaillant.",
   planB:"Musée d'ethnographie, entièrement couvert, et cafés à étage du vieux quartier. Décalage horaire + pluie = journée d'intérieur assumée.",
@@ -878,6 +887,7 @@ function allKeys(){
   RESAS.forEach(r => out.push("resa:" + r.id));
   TRIP.forEach(d => {
     (d.groups||[]).forEach(g => (g.items||[]).forEach(it => out.push(itemKey(d.n, it.t))));
+    if (d.booked) out.push("d"+d.n+":hotel-reserve");
     if (d.hotels) Object.keys(d.hotels).forEach(k => out.push("d"+d.n+":hotel:"+slug(d.hotels[k].name)));
     if (d.hotelTodo) out.push(itemKey(d.n, d.hotelTodo.t));
   });
@@ -954,6 +964,7 @@ function daysUntilStart(){
 function dayItems(d){
   const out = [];
   (d.groups||[]).forEach(g => (g.items||[]).forEach(it => out.push({ it, key: itemKey(d.n, it.t) })));
+  if (d.booked) out.push({ it:{ t:"Hôtel réservé" }, key:"d"+d.n+":hotel-reserve" });
   if (d.hotels) Object.keys(d.hotels).forEach(k => out.push({ it:{ t:d.hotels[k].name }, key:"d"+d.n+":hotel:"+slug(d.hotels[k].name) }));
   if (d.hotelTodo) out.push({ it:d.hotelTodo, key: itemKey(d.n, d.hotelTodo.t) });
   return out;
@@ -1069,6 +1080,25 @@ function renderHotels(d){
   let html = '<div class="section"><div class="section-header"><span class="section-icon">🏨</span>'
     + '<span class="section-title">Où dormir · ' + esc(d.hotelsCity) + '</span>'
     + '<span class="section-count">' + esc(d.hotelsNights) + '</span></div>';
+  if (d.booked) {
+    const bk = "d" + d.n + ":hotel-reserve";
+    const done = !!state.checked[bk];
+    DRV.push({ n:"Khách sạn", a:d.booked.addr, c:d.booked.city });
+    const di = DRV.length - 1;
+    html += '<div class="hotel-card booked ' + (done?"done":"") + '"><div class="hotel-top">'
+      + '<button class="check-hit" data-key="' + bk + '" aria-pressed="' + done + '" aria-label="Check-in fait">'
+      + '<span class="checkbox ' + (done?"done":"") + '">' + (done?"✓":"") + '</span></button>'
+      + '<div class="hotel-body">'
+      + '<div class="booked-tag">✅ Ton hôtel · ' + esc(d.booked.nights) + '</div>'
+      + '<div class="booked-addr">' + esc(d.booked.addr) + '</div>'
+      + '<div class="hotel-addr">' + esc(d.booked.city) + '</div>'
+      + '<p class="hotel-why">' + esc(d.booked.note) + '</p>'
+      + '<div class="hotel-foot">'
+      + '<span style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">'
+      + '<a class="maps-link" href="' + mapsUrl(d.booked.addr + " " + d.booked.city) + '" target="_blank" rel="noopener">📍 Maps</a>'
+      + '<button class="drv-btn" data-drv="' + di + '">🚕 Chauffeur</button>'
+      + '</span></div></div></div></div>';
+  }
   if (d.hotelsIntro) html += '<div class="alert alert-info">' + esc(d.hotelsIntro) + '</div>';
   html += '<div style="margin-top:8px">';
 
