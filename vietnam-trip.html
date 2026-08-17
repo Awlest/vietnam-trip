@@ -415,6 +415,7 @@ const TRIP = [
   line:"Remontée le matin, puis la journée shopping de Saigon. Tout est en intérieur.",
   intensity:3, weather:"32 °C · averse en milieu d'après-midi",
   transport:{ icon:"🚗", text:"Ben Tre → Saigon, 2 h à 2 h 30. Pars avant 9 h : après, la nationale 1 se charge." },
+  blockInfo:"Ce samedi 22 août est un jour travaillé au Vietnam : il a été échangé avec le lundi 31 pour former le pont de la fête nationale. Bureaux et banques ouverts, et surtout circulation de semaine à Saigon — compte plus large sur les trajets qu'un samedi normal.",
   planB:"Tout le programme du jour est en intérieur. C'est la journée à faire glisser ici si la météo se dégrade ailleurs.",
   planBp:"Vol du 23 annulé → il y a une dizaine de rotations quotidiennes vers Da Nang. Si tu perds le 23 entier, tu perds le pont du Dragon : dans ce cas seulement, reporte-le au vendredi 28 en modifiant le train de nuit pour le lendemain. C'est le seul rattrapage possible, le spectacle ne joue que vendredi, samedi et dimanche.",
   groups:[
@@ -472,7 +473,7 @@ const TRIP = [
       { t:"Musée de la sculpture Cham", n:"La plus belle collection cham au monde, dans un bâtiment colonial. Couvert, donc c'est le repli si l'orage tombe.", p:"60 000 VND", m:"Museum of Cham Sculpture Da Nang", rain:true },
       { t:"Être sur la promenade Bạch Đằng à 20 h 15", n:"La fréquentation est au maximum entre 20 h et 21 h le week-end. Quarante-cinq minutes d'avance, ce n'est pas trop.", urgent:true, m:"Bach Dang street Dragon Bridge Da Nang" },
       { t:"Se placer côté est, An Hải, près de la tête du dragon", n:"C'est de là que sort le feu. Attention, le jet d'eau qui suit arrose franchement les premiers rangs — range le téléphone au bon moment.", m:"An Hai Dragon Bridge east side Da Nang" },
-      { t:"Spectacle feu et eau, 21 h", n:"Uniquement vendredi, samedi et dimanche, environ 30 minutes, gratuit et sans billet. Cycles de 2 min de feu puis 3 min d'eau. C'est la seule occasion du séjour : les jours suivants à Hoi An sont un lundi, un mardi et un mercredi.", urgent:true }
+      { t:"Spectacle feu et eau, 21 h", n:"Uniquement vendredi, samedi et dimanche, gratuit et sans billet. Les sources donnent entre 15 et 30 minutes selon les soirs : compte 15 minutes de spectacle réel, feu d'abord puis eau. Ne pars pas après la première salve d'eau. C'est la seule occasion du séjour : les jours suivants à Hoi An sont un lundi, un mardi et un mercredi.", urgent:true }
     ]},
     { title:"Manger", items:[
       { t:"Dîner halal dans Hải Châu vers 19 h", n:"Dernière ville du centre avec de vraies options halal. Mange tôt pour être sur la promenade à 20 h 15.", p:"~8 €", halal:true, urgent:true, m:"halal restaurant Hai Chau Da Nang" },
@@ -764,10 +765,10 @@ const VN_ADDR = {
   "Bitexco Skydeck ou le bar du 52ᵉ": { n:"Tòa nhà Bitexco Financial Tower", a:"2 Hải Triều", c:"Quận 1, TP. Hồ Chí Minh" },
 
   // ---- Ben Tre
-  "Fruits du marché de Ben Tre": { n:"Chợ Bến Tre", a:"", c:"TP. Bến Tre" },
-  "Marché flottant de Cái Bè, départ 5 h 30": { n:"Chợ nổi Cái Bè", a:"", c:"Cái Bè, Tiền Giang" },
-  "Pagode Vĩnh Tràng, sur la route": { n:"Chùa Vĩnh Tràng", a:"", c:"Mỹ Phong, Mỹ Tho, Tiền Giang" },
-  "Sa Déc, la maison de l'Amant": { n:"Nhà cổ Huỳnh Thủy Lê", a:"255A Nguyễn Huệ", c:"Sa Đéc, Đồng Tháp" },
+  "Fruits du marché de Ben Tre": { n:"Chợ Bến Tre", a:"", c:"TP. Bến Tre, tỉnh Vĩnh Long" },
+  "Marché flottant de Cái Bè, départ 5 h 30": { n:"Chợ nổi Cái Bè", a:"", c:"Thị trấn Cái Bè" },
+  "Pagode Vĩnh Tràng, sur la route": { n:"Chùa Vĩnh Tràng", a:"", c:"Mỹ Tho" },
+  "Sa Déc, la maison de l'Amant": { n:"Nhà cổ Huỳnh Thủy Lê", a:"255A Nguyễn Huệ", c:"Sa Đéc" },
 
   // ---- Da Nang
   "Plage de Mỹ Khê l'après-midi": { n:"Bãi biển Mỹ Khê", a:"", c:"Sơn Trà, Đà Nẵng" },
@@ -780,16 +781,16 @@ const VN_ADDR = {
 
   // ---- Ba Na / Hoi An
   "Billet Ba Na Hills": { n:"Sun World Bà Nà Hills", a:"Thôn An Sơn, xã Hòa Ninh", c:"Hòa Vang, Đà Nẵng" },
-  "Commande des ao dai — 15 h 30 dernier délai": { n:"Phố may đo áo dài — đường Lê Lợi", a:"Đường Lê Lợi", c:"Phố cổ Hội An, Quảng Nam" },
-  "Mosque Restaurant Hoi An": { n:"Nhà hàng Mosque (Thánh đường Hồi giáo)", a:"Đường Nguyễn Thái Học", c:"Hội An, Quảng Nam" },
-  "Vieille ville aux lanternes en fin de soirée": { n:"Phố cổ Hội An", a:"", c:"Hội An, Quảng Nam" },
-  "Mỹ Sơn, départ 5 h": { n:"Thánh địa Mỹ Sơn", a:"Xã Duy Phú", c:"Duy Xuyên, Quảng Nam" },
-  "Scooter ou vélo jusqu'à An Bàng": { n:"Bãi biển An Bàng", a:"", c:"Hội An, Quảng Nam" },
-  "Matinée à An Bàng": { n:"Bãi biển An Bàng", a:"", c:"Hội An, Quảng Nam" },
-  "Forêt de cocotiers de Bảy Mẫu en bateau-panier": { n:"Rừng dừa Bảy Mẫu", a:"Xã Cẩm Thanh", c:"Hội An, Quảng Nam" },
-  "Bánh mì Phượng": { n:"Bánh mì Phượng", a:"2B Phan Châu Trinh", c:"Hội An, Quảng Nam" },
-  "Marché central de Hoi An": { n:"Chợ Hội An", a:"Đường Trần Phú", c:"Hội An, Quảng Nam" },
-  "Coucher de soleil à vélo dans Trà Quế": { n:"Làng rau Trà Quế", a:"", c:"Hội An, Quảng Nam" },
+  "Commande des ao dai — 15 h 30 dernier délai": { n:"Phố may đo áo dài — đường Lê Lợi", a:"Đường Lê Lợi", c:"Phố cổ Hội An, TP. Đà Nẵng" },
+  "Mosque Restaurant Hoi An": { n:"Nhà hàng Mosque (Thánh đường Hồi giáo)", a:"Đường Nguyễn Thái Học", c:"Hội An, TP. Đà Nẵng" },
+  "Vieille ville aux lanternes en fin de soirée": { n:"Phố cổ Hội An", a:"", c:"Hội An, TP. Đà Nẵng" },
+  "Mỹ Sơn, départ 5 h": { n:"Thánh địa Mỹ Sơn", a:"Xã Duy Phú", c:"Duy Xuyên, TP. Đà Nẵng" },
+  "Scooter ou vélo jusqu'à An Bàng": { n:"Bãi biển An Bàng", a:"", c:"Hội An, TP. Đà Nẵng" },
+  "Matinée à An Bàng": { n:"Bãi biển An Bàng", a:"", c:"Hội An, TP. Đà Nẵng" },
+  "Forêt de cocotiers de Bảy Mẫu en bateau-panier": { n:"Rừng dừa Bảy Mẫu", a:"Xã Cẩm Thanh", c:"Hội An, TP. Đà Nẵng" },
+  "Bánh mì Phượng": { n:"Bánh mì Phượng", a:"2B Phan Châu Trinh", c:"Hội An, TP. Đà Nẵng" },
+  "Marché central de Hoi An": { n:"Chợ Hội An", a:"Đường Trần Phú", c:"Hội An, TP. Đà Nẵng" },
+  "Coucher de soleil à vélo dans Trà Quế": { n:"Làng rau Trà Quế", a:"", c:"Hội An, TP. Đà Nẵng" },
 
   // ---- Hué
   "Montagnes de Marbre en route": { n:"Ngũ Hành Sơn", a:"Đường Huyền Trân Công Chúa", c:"Ngũ Hành Sơn, Đà Nẵng" },
@@ -805,9 +806,9 @@ const VN_ADDR = {
 const VN_CITY = {
   "Hanoi": "Hà Nội",
   "Saigon": "Quận 1, TP. Hồ Chí Minh",
-  "Ben Tre / Mékong": "Tỉnh Bến Tre",
+  "Ben Tre / Mékong": "TP. Bến Tre, tỉnh Vĩnh Long",
   "Da Nang": "Đà Nẵng",
-  "Hoi An": "Hội An, Quảng Nam",
+  "Hoi An": "Hội An, TP. Đà Nẵng",
   "Hué": "TP. Huế"
 };
 
@@ -1228,6 +1229,13 @@ function renderRef(){
   + '<p><strong>L\'alternative qui vaut mieux :</strong> à Hoi An, tu montres la photo d\'un modèle à un tailleur et il te le refait à tes mesures, sans logo, en 24 à 48 h. C\'est légal, c\'est à ta taille, et ça ne se fera jamais saisir.</p>'
   + '<p><strong>Changer ses euros :</strong> les boutiques d\'or (<strong>tiệm vàng</strong>) donnent un meilleur taux que les banques et les hôtels. À Hanoi, c\'est la rue <strong>Hà Trung</strong>. Recompte au comptoir avant de sortir.</p></div>'
 
+  + '<div class="ref"><div class="ref-title">✅ Ce qui a été vérifié, et ce qui ne l\'a pas été</div>'
+  + '<p>Audit fait le <strong>17 août 2026</strong>, après une erreur sur le visa. Autant que tu saches où me faire confiance.</p>'
+  + '<p><strong>Vérifié sur source officielle :</strong> l\'exemption de visa belge (résolution 229/NQ-CP), les 5 jours fériés du 29 août au 2 septembre, le spectacle du pont du Dragon les vendredi, samedi et dimanche à 21 h, le billet Ba Na Hills à 1 000 000 VND valable 3 jours depuis janvier 2026, la réforme administrative de juillet 2025, et le taux de change.</p>'
+  + '<p><strong>Corrigé à cette occasion :</strong> le taux était donné à 27 000 VND pour un euro, il est à 30 200 — tout est donc 12 % moins cher que ce que le budget annonçait. Les provinces de Quảng Nam et Bến Tre citées dans les cartes chauffeur n\'existent plus depuis juillet 2025.</p>'
+  + '<p><strong>Non vérifié, à considérer comme indicatif :</strong> les prix d\'entrée des musées, tombeaux et sites, les tarifs et notes des hôtels, les horaires et l\'existence des restaurants et boutiques nommés, les horaires de train, et les numéros de téléphone des ambassades. Tout cela bouge, et je ne l\'ai pas recontrôlé un par un. Un prix d\'entrée faux te coûte deux euros de surprise ; c\'est la seule catégorie où je te laisse avancer sans filet.</p>'
+  + '<p><strong>Le réflexe utile sur place :</strong> pour tout ce qui a un horaire — musée, spectacle, dernier téléphérique — demande confirmation à la réception de l\'hôtel la veille. Trente secondes, et c\'est l\'information la plus fraîche que tu trouveras.</p></div>'
+
   + '<div class="ref"><div class="ref-title">🆘 Urgences</div>'
   + '<div class="kv"><span class="kv-k">Police</span><span class="kv-v">113</span></div>'
   + '<div class="kv"><span class="kv-k">Pompiers</span><span class="kv-v">114</span></div>'
@@ -1257,7 +1265,7 @@ function renderRef(){
   + '</div>'
 
   + '<div class="ref"><div class="ref-title">💵 Argent</div>'
-  + '<p><strong>Repère :</strong> 1 € ≈ 27 000 VND, donc 100 000 VND ≈ 3,70 €. Ordre de grandeur mi-2026 — revérifie le taux la veille du départ.</p>'
+  + '<p><strong>Repère :</strong> 1 € ≈ 30 200 VND, donc 100 000 VND ≈ 3,30 € et 1 000 000 VND ≈ 33 €. Cours vérifié le 17 août 2026 — il bouge peu, mais recontrôle au départ.</p>'
   + '<p><strong>Le réflexe qui compte :</strong> quand un ATM ou un terminal de paiement propose de te débiter en euros, refuse toujours et choisis « sans conversion ». La conversion offerte coûte entre 5 et 12 %.</p>'
   + '<p><strong>ATM :</strong> TPBank, VPBank et Techcombank ne prennent pas de frais fixes. Agribank et BIDV en prennent, souvent 50 000 VND par retrait. Retire gros et peu souvent.</p>'
   + '<p><strong>Cash :</strong> indispensable dans le delta, dans les marchés et pour les barques. Les hôtels, restaurants de centre-ville et Grab prennent la carte.</p></div>'
@@ -1266,15 +1274,15 @@ function renderRef(){
   + kv("Hôtels, 12 nuits","≈ 633 €")
   + kv("Vols intérieurs, 4 billets","≈ 210 €")
   + kv("Couchette Hué → Hanoi","≈ 150 €")
-  + kv("Voitures privées, Grab, transferts","≈ 220 €")
+  + kv("Voitures privées, Grab, transferts","≈ 205 €")
   + kv("Repas, 13 jours","≈ 340 €")
-  + kv("Entrées et activités","≈ 170 €")
+  + kv("Entrées et activités","≈ 152 €")
   + kv("Ao dai et tailleur","≈ 130 €")
   + kv("eSIM et divers","≈ 20 €")
-  + '<div class="kv total"><span class="kv-k"><strong>Total estimé</strong></span><span class="kv-v big">≈ 1 873 €</span></div>'
+  + '<div class="kv total"><span class="kv-k"><strong>Total estimé</strong></span><span class="kv-v big">≈ 1 840 €</span></div>'
   + '<div class="kv"><span class="kv-k">Enveloppe</span><span class="kv-v">2 000 €</span></div>'
-  + '<div class="kv"><span class="kv-k"><strong>Marge restante</strong></span><span class="kv-v big">≈ 127 €</span></div>'
-  + '<p style="margin-top:10px">Cent vingt-sept euros de marge sur treize jours, c\'est peu : environ dix euros par jour. La variable d\'ajustement réelle, c\'est le tailleur — une pièce en moins et la marge double. Le poste le plus sous-estimé, ce sont les voitures privées : Ba Na et Saigon → Ben Tre coûtent à eux seuls 110 €.</p></div>'
+  + '<div class="kv"><span class="kv-k"><strong>Marge restante</strong></span><span class="kv-v big">≈ 160 €</span></div>'
+  + '<p style="margin-top:10px">Cent soixante euros de marge sur treize jours, soit une douzaine d\'euros par jour. La variable d\'ajustement réelle, c\'est le tailleur — une pièce en moins et la marge double. Le poste le plus sous-estimé, ce sont les voitures privées : Ba Na et Saigon → Ben Tre coûtent à eux seuls 110 €.</p></div>'
 
   + '<div class="ref"><div class="ref-title">📱 Apps à installer avant de partir</div>'
   + '<p><strong>Grab</strong> — taxis et scooters, prix affiché à l\'avance. Indispensable, et la carte bancaire doit être enregistrée avant le départ.</p>'
@@ -1290,7 +1298,8 @@ function renderRef(){
   + '<p><strong>Sur place :</strong> tous les matins, dix secondes sur Windy. Août est en pleine saison des typhons sur le centre : ce n\'est pas de la paranoïa, c\'est la routine locale.</p></div>'
 
   + '<div class="ref"><div class="ref-title">📍 Pourquoi tous les liens sont des recherches</div>'
-  + '<p>Les réorganisations administratives provinciales de 2025-2026 ont périmé beaucoup d\'adresses écrites : des rues ont changé de numérotation, des communes ont fusionné, des provinces ont été redécoupées. Une adresse figée dans une app hors ligne devient fausse sans prévenir.</p>'
+  + '<p><strong>Ce n\'est pas une précaution théorique.</strong> Le 1ᵉʳ juillet 2025, le Vietnam est passé de <strong>63 à 34 provinces</strong> et a supprimé l\'échelon des districts. Concrètement, pour ce voyage : la province de <strong>Quảng Nam n\'existe plus</strong>, Hội An et Mỹ Sơn sont désormais dans la ville de Đà Nẵng ; <strong>Bến Tre a été absorbée par Vĩnh Long</strong> ; et les 22 districts de Saigon ont été remplacés par 102 quartiers.</p>'
+  + '<p><strong>Mais dans la rue, rien n\'a changé.</strong> Tout le monde dit toujours « Quận 1 », les panneaux l\'affichent, les chauffeurs le comprennent. C\'est pour ça que les cartes chauffeur de cette app gardent les appellations courantes : ce qui compte est ce que le chauffeur comprend, pas ce qui est officiel. En revanche les sites de réservation et les documents officiels basculent progressivement vers les nouveaux noms — d\'où des adresses qui ne concordent pas d\'un site à l\'autre.</p>'
   + '<p>Les <strong>noms de lieux</strong>, eux, restent trouvables. C\'est pour ça que chaque bouton Maps ouvre une <strong>recherche</strong> et non une position enregistrée.</p>'
   + '<p><strong>Le geste utile :</strong> dès que tu as du wifi, ouvre les lieux importants de la journée du lendemain et épingle-les en favoris dans Google Maps. Un favori enregistré fonctionne hors ligne, une recherche non.</p></div>'
 
