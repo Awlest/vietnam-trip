@@ -198,12 +198,17 @@ details summary{list-style:none}
 .drv-btn{display:inline-flex;align-items:center;gap:4px;font-size:11px;color:var(--amber);font-weight:600;min-height:32px;padding:4px 0}
 .drv{position:fixed;inset:0;z-index:60;background:#fff;color:#000;display:flex;flex-direction:column;
   padding:calc(18px + env(safe-area-inset-top)) 20px calc(18px + env(safe-area-inset-bottom));overflow-y:auto}
-.drv-ask{font-size:17px;font-weight:600;color:#333;line-height:1.4;padding-bottom:14px;border-bottom:2px solid #000}
-.drv-name{font-size:30px;font-weight:800;line-height:1.2;margin-top:22px;overflow-wrap:anywhere}
-.drv-addr{font-size:26px;font-weight:600;line-height:1.35;margin-top:14px;overflow-wrap:anywhere}
-.drv-city{font-size:22px;font-weight:600;color:#444;margin-top:10px}
-.drv-thanks{font-size:20px;color:#333;margin-top:24px}
-.drv-note{margin-top:auto;padding-top:22px;font-size:12px;color:#666;line-height:1.5}
+.drv-hello{font-size:18px;font-weight:700;color:#000;line-height:1.35}
+.drv-lang{font-size:15px;color:#333;line-height:1.5;margin-top:8px;padding-bottom:14px;border-bottom:2px solid #000}
+.drv-ask{font-size:16px;font-weight:600;color:#333;line-height:1.4;margin-top:18px}
+.drv-name{font-size:28px;font-weight:800;line-height:1.2;margin-top:10px;overflow-wrap:anywhere}
+.drv-addr{font-size:26px;font-weight:700;line-height:1.35;margin-top:10px;overflow-wrap:anywhere}
+.drv-city{font-size:21px;font-weight:600;color:#444;margin-top:8px}
+.drv-help{font-size:15px;color:#333;line-height:1.5;margin-top:20px;padding-top:14px;border-top:1px solid #ccc}
+.drv-thanks{font-size:18px;font-weight:600;color:#000;line-height:1.45;margin-top:14px}
+.drv-wish{font-size:16px;color:#333;line-height:1.45;margin-top:6px}
+.drv-note{margin-top:auto;padding-top:22px;font-size:11.5px;color:#666;line-height:1.55}
+.drv-note strong{color:#333}
 .drv-close{margin-top:16px;width:100%;min-height:52px;background:#000;color:#fff;border-radius:12px;font-size:15px;font-weight:700}
 @media (min-width:640px){ .drv-name{font-size:38px} .drv-addr{font-size:32px} }
 
@@ -1006,13 +1011,23 @@ function openDriver(card){
   el.id = "drvOverlay";
   el.setAttribute("role", "dialog");
   el.setAttribute("aria-modal", "true");
-  el.innerHTML = '<div class="drv-ask">Làm ơn đưa tôi đến địa chỉ này.</div>'
+  el.innerHTML = '<div class="drv-hello">Xin chào anh/chị ạ! 🙏</div>'
+    + '<div class="drv-lang">Chúng tôi là khách du lịch. Rất tiếc, chúng tôi không nói được tiếng Việt — '
+    + 'chúng tôi chỉ nói được tiếng Anh thôi ạ. Mong anh/chị thông cảm.</div>'
+    + '<div class="drv-ask">Anh/chị làm ơn cho chúng tôi đến địa chỉ này ạ:</div>'
     + '<div class="drv-name">' + esc(card.n) + '</div>'
     + (card.a ? '<div class="drv-addr">' + esc(card.a) + '</div>' : "")
     + '<div class="drv-city">' + esc(card.c) + '</div>'
-    + '<div class="drv-thanks">Xin cảm ơn!</div>'
-    + '<div class="drv-note">Montre cet écran au chauffeur. Monte la luminosité au maximum. '
-    + 'Si l\'adresse ne dit rien au chauffeur, le nom du lieu en gros suffit en général : demande-lui de le lire à voix haute pour vérifier qu\'il a compris.</div>'
+    + '<div class="drv-help">Nếu cần, anh/chị cứ chỉ tay hoặc dùng ứng dụng dịch trên điện thoại nhé ạ. '
+    + 'Chúng tôi rất vui được anh/chị giúp đỡ.</div>'
+    + '<div class="drv-thanks">Chúng tôi xin chân thành cảm ơn anh/chị rất nhiều ạ!</div>'
+    + '<div class="drv-wish">Chúc anh/chị thật nhiều sức khoẻ và một ngày tốt lành! 😊</div>'
+    + '<div class="drv-note"><strong>Ce que le chauffeur lit :</strong> « Bonjour ! Nous sommes des touristes. '
+    + 'Nous sommes désolés, nous ne parlons pas vietnamien — seulement anglais. Merci de votre compréhension. '
+    + 'Pourriez-vous nous emmener à cette adresse, s\'il vous plaît ? … Si besoin, montrez du doigt ou utilisez '
+    + 'une appli de traduction sur votre téléphone. Nous vous remercions sincèrement. Bonne santé et belle journée ! »<br><br>'
+    + '<strong>À faire :</strong> monte la luminosité au maximum et tends le téléphone. Si l\'adresse ne lui dit rien, '
+    + 'le nom du lieu en gros suffit en général — demande-lui de le lire à voix haute pour vérifier qu\'il a compris.</div>'
     + '<button class="drv-close">Fermer</button>';
   document.body.appendChild(el);
   el.querySelector(".drv-close").focus();
