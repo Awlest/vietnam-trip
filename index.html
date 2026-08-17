@@ -128,6 +128,7 @@ details summary{list-style:none}
 .g-insta{color:var(--pink)}
 .g-eco{color:var(--emerald)}
 .g-secret{color:var(--purple)}
+.g-budget{color:#5eead4}
 .hotel-name{font-size:13.5px;font-weight:700;line-height:1.35;overflow-wrap:anywhere}
 .hotel-card.done{opacity:.6}
 .hotel-card.done .hotel-name{text-decoration:line-through;color:var(--text3)}
@@ -138,6 +139,8 @@ details summary{list-style:none}
 .hotel-note{font-size:11px;line-height:1.5;padding:8px 10px;border-radius:8px;margin-bottom:8px}
 .note-safe{background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.22);color:#6ee7b7}
 .note-avoid{background:rgba(244,63,94,.08);border:1px solid rgba(244,63,94,.22);color:#fda4af}
+.note-warn{background:rgba(251,146,60,.09);border:1px solid rgba(251,146,60,.28);color:#fdba74}
+.note-src{background:rgba(94,234,212,.07);border:1px solid rgba(94,234,212,.22);color:#5eead4}
 
 /* Plans B */
 .planb{margin-top:6px;padding:10px 12px;background:rgba(251,191,36,.07);border:1px solid rgba(251,191,36,.22);border-radius:10px}
@@ -261,6 +264,8 @@ const TRIP = [
       why:"4,8/5 sur plus de 1 500 avis. Piscine, jacuzzi, bar en rooftop, hall classique très photogénique. Le spa est réputé pour son rapport qualité-prix." },
     eco:{ name:"Hanoi Old Quarter Hotel", addr:"23 Ngõ Hàng Hành", price:"40–55 €",
       why:"4,7/5. Dans une ruelle calme à deux pas du lac. L'ascenseur s'arrête au 6ᵉ : monte à pied au 7ᵉ, la vue sur Hoàn Kiếm y est meilleure que dans bien des hôtels deux fois plus chers." },
+    budget:{ name:"A25 Hotel — vieux quartier", addr:"19 Chả Cá · 15 Hàng Than · 57 Quang Trung", price:"18–25 €",
+      why:"Chaîne vietnamienne de 2-3 étoiles avec une dizaine d'adresses rien qu'à Hanoi, dont plusieurs dans le vieux quartier. C'est propre, climatisé, sans charme, et c'est exactement ce qu'on demande à 20 €. L'intérêt de la chaîne : si une adresse est pleine, la suivante est à 300 m. Replis à noter : Golden Rooster Hotel, Hanoi Inner Hotel (19 Âu Triệu)." },
     secret:{ name:"Dong Xuan Boutique Hotel", addr:"68 Nguyễn Thiếp", price:"45–60 €",
       why:"4,9/5 mais seulement ~200 avis : quasi inconnu des circuits. Chambres spacieuses, surclassements fréquents, à côté du marché Đồng Xuân donc au nord du vieux quartier, plus calme le soir." }
   },
@@ -280,6 +285,8 @@ const TRIP = [
       { t:"D'lions Halal Restaurant", n:"Cuisine halal vietnamienne et indienne. La valeur sûre du premier soir, à cinq minutes du lac.", p:"~6 €", halal:true, m:"D'lions Halal Restaurant Hanoi" },
       { t:"Chả Cá Thăng Long", n:"Poisson au curcuma et à l'aneth, recette de 1871, cuit à table. Cent pour cent poisson, donc sans difficulté.", p:"~10 €", halal:"option", m:"Cha Ca Thang Long Duong Thanh Hanoi", rain:true },
       { t:"Café Giảng — egg coffee", n:"Inventeur du café à l'œuf en 1946. Minuscule, à l'étage, au fond d'un couloir. Ça se boit chaud, à la cuillère.", p:"~1,50 €", halal:true, m:"Cafe Giang 39 Nguyen Huu Huan Hanoi" }
+    ,
+      { t:"Cơm chay du vieux quartier", n:"La gargote végétarienne bouddhiste est la solution pas chère et sans risque au Vietnam : tout est sans viande, donc aucune question à poser sur le porc. On désigne trois plats du doigt, on paie au poids. Cherche une enseigne « quán chay » ou « cơm chay ».", p:"~40 000 VND pour deux", halal:true, m:"quan com chay Hoan Kiem Ha Noi" }
     ]},
     { title:"Bonus", items:[
       { t:"Musée d'ethnographie du Vietnam", n:"Le meilleur musée du pays et entièrement couvert : c'est le repli pluie de la journée. Maisons traditionnelles grandeur nature dans le jardin.", p:"40 000 VND", m:"Vietnam Museum of Ethnology Hanoi", rain:true },
@@ -299,6 +306,8 @@ const TRIP = [
       why:"Piscine à débordement en rooftop avec vue skyline, restaurant recommandé au Michelin au dernier étage, décor art déco. C'est l'adresse photogénique de la ville." },
     eco:{ name:"M Village Premier Tôn Thất Đạm", addr:"129-131 Tôn Thất Đạm", price:"45–65 €",
       why:"4,5/5. Chambres compactes mais neuves et bien tenues. Le vrai atout est la rue : stands de street food devant la porte et une échoppe de nouilles ouverte 24 h. Saigon Centre à 3 min à pied." },
+    budget:{ name:"Calista Saigon Hotel", addr:"quartier Bến Thành, Quận 1", price:"20–25 €",
+      why:"Cinq minutes du marché Bến Thành, huit du palais de la Réunification : au niveau emplacement, c'est aussi central que les adresses trois fois plus chères. Chambres petites et basiques, c'est le deal. Repli : les adresses A25 des districts 1 et 3, même logique de chaîne qu'à Hanoi." },
     secret:{ name:"Amanaki Saigon Boutique Hotel", addr:"65 Hồ Tùng Mậu", price:"55–75 €",
       why:"4,8/5. Démarche écoresponsable, beaucoup de bois, esthétique sobre, personnel très souvent cité nommément dans les avis. Central sans être sur un axe bruyant. Réserve : cloisons fines, prends des bouchons." }
   },
@@ -317,6 +326,8 @@ const TRIP = [
       { t:"D'Nyonya Halal", n:"Rue Đông Du, à côté de la mosquée. Cuisine indo-malaise et vietnamienne halal : biryani, rendang, satay.", p:"~8 €", halal:true, m:"D'Nyonya Halal Restaurant Dong Du Saigon" },
       { t:"VN Halal Restaurant", n:"L'autre adresse certifiée du quartier, à cinquante mètres. Utile parce que les jours de fermeture ne tombent pas les mêmes.", p:"~7 €", halal:true, m:"VN Halal Restaurant Dong Du Saigon" },
       { t:"Phở Hòa Pasteur", n:"Soixante ans de bœuf et de bouillon limpide. Demande explicitement sans porc — le phở bò n'en contient pas, mais les accompagnements de la table, si.", p:"~3 €", halal:"option", m:"Pho Hoa Pasteur District 3 Ho Chi Minh City" }
+    ,
+      { t:"Cơm chay, Quận 1", n:"Même principe qu'à Hanoi, et il y en a partout dans le district 1, souvent près des pagodes. Trois fois moins cher qu'un repas rue Đông Du, pour une assiette complète.", p:"~40 000 VND pour deux", halal:true, m:"quan com chay Quan 1 Ho Chi Minh" }
     ]},
     { title:"Bonus", items:[
       { t:"Immeuble 42 Nguyễn Huệ", n:"Vieil immeuble d'habitation entièrement colonisé par des cafés indépendants, un par appartement, sur neuf étages. Prends le vieil ascenseur, monte tout en haut, redescends à pied.", m:"The Cafe Apartment 42 Nguyen Hue Saigon", rain:true },
@@ -335,9 +346,12 @@ const TRIP = [
       why:"Jardin paysager remarquable, piscine, terrasse au bord de l'eau pour le coucher de soleil. Cuisine sur place très bien notée, atelier de cuisine avec un chef. Le plus « carte postale » du delta." },
     eco:{ name:"Ben Tre Farm Stay", addr:"ấp 3, An Hội", price:"30–45 €",
       why:"4,5/5. Bungalows individuels impeccables, vélos prêtés, arbres fruitiers partout, location de scooters à prix honnête. Réserve : pression d'eau faible aux douches." },
+    budget:{ name:"Việt Úc Hotel", addr:"An Hội, TP. Bến Tre", price:"20–28 €",
+      why:"Vrai hôtel de 73 chambres en ville, trois étoiles, à cinq minutes à pied du marché de nuit et du musée. Deux restaurants sur place. Repli équivalent : Hàm Lương Hotel, 66 chambres face au fleuve. ⚠️ Lis d'abord l'avertissement sous ce bloc : ces deux adresses te sortent du delta." },
     secret:{ name:"Mekong Home", addr:"Phước Long, Giồng Trôm", price:"45–65 €",
       why:"4,8/5 sur ~500 avis et pourtant absent des circuits classiques. Tenu par Khoa et sa famille, design très soigné, cuisine citée comme exceptionnelle, le gérant raconte les traditions à table. C'est le meilleur candidat au voyage inoubliable." }
   },
+  hotelWarn:"Ici, le petit budget change la nature des deux journées, et c'est le seul endroit du voyage où c'est le cas. Les trois autres adresses sont des lodges au bord des arroyos : le sampan part du jardin, le kayak aussi, et surtout c'est leur cuisine qui règle le problème halal, puisqu'il n'y a aucun restaurant halal dans le delta. Un hôtel en ville de Bến Tre, c'est 25 € de moins par nuit, mais tu te retrouves dans une petite ville quelconque, à 20 minutes de taxi des cocotiers, et tu dois gérer tes repas seul. Mon avis : c'est la nuit où il vaut le coup de payer les 25 € de plus. Si tu prends quand même l'hôtel, déplace le budget économisé vers un tour à la journée avec déjeuner inclus.",
   hotelSafe:"Alternative : Coco Riverside Lodge (4,7) — bungalows rustiques face à la rivière et cuisine végétalienne excellente sur demande, ce qui règle une bonne partie du problème halal. Préviens avant l'arrivée.",
   hotelAvoid:"Volontairement écarté : Ecoco Homestay, très bien noté mais dortoirs et sanitaires extérieurs partagés — contraire au choix d'hébergements autonomes.",
   planB:"Le delta sous la pluie depuis une véranda est une des belles images du voyage. Atelier de cuisine ou fabrique de bonbons à la noix de coco, tout se fait couvert.",
@@ -353,6 +367,8 @@ const TRIP = [
     { title:"Manger", items:[
       { t:"Dîner au lodge", n:"Poisson « oreille d'éléphant » dressé debout, à rouler soi-même dans une galette de riz avec les herbes. Demande la version sans porc, commandée la veille.", p:"~10 €", halal:"option", rain:true },
       { t:"Fruits du marché de Ben Tre", n:"Mangoustan, ramboutan, sapotille, et le durian si tu oses. Août est en pleine saison. On achète au kilo, ça ne coûte rien.", p:"~50 000 VND", m:"Cho Ben Tre market" }
+    ,
+      { t:"Marché de Bến Tre : bánh mì et fruits", n:"Le repas le moins cher du voyage. Bánh mì à l'œuf ou végétarien à 20 000, un kilo de mangoustan à 40 000 : vous avez déjeuné à deux pour moins de deux euros.", p:"~50 000 VND pour deux", halal:"option", m:"Cho Ben Tre market" }
     ]},
     { title:"Bonus", items:[
       { t:"Pagode Vĩnh Tràng, sur la route", n:"Sur l'axe Saigon → Ben Tre, à Mỹ Tho. Trois bouddhas géants dans un jardin, dont un couché de trente mètres. Arrêt de trente minutes, gratuit.", m:"Vinh Trang Pagoda My Tho" },
@@ -376,6 +392,8 @@ const TRIP = [
     { title:"Manger", items:[
       { t:"Déjeuner paysan au village", n:"Inclus dans la tournée des ateliers : riz, légumes du jardin, fruits. Simple et sans piège.", p:"Inclus", halal:"option" },
       { t:"Hủ tiếu Mỹ Tho", n:"La spécialité du delta : nouilles au bouillon clair, plus subtil que le phở. Demande la version aux crevettes pour éviter le porc.", p:"~2 €", halal:"option", m:"Hu tieu My Tho" }
+    ,
+      { t:"Hủ tiếu chay au marché", n:"La version végétarienne de la spécialité du delta : bouillon de légumes, nouilles, tofu, herbes. Aucune ambiguïté sur le porc, contrairement à la version classique.", p:"~30 000 VND", halal:true, m:"hu tieu chay Ben Tre" }
     ]},
     { title:"Bonus", items:[
       { t:"Sa Déc, la maison de l'Amant", n:"Maison de Huỳnh Thủy Lê, l'amant de Marguerite Duras. Une heure de route, une demi-heure sur place, et le livre change de texture après.", p:"~1 €", m:"Huynh Thuy Le Ancient House Sa Dec", rain:true },
@@ -404,6 +422,8 @@ const TRIP = [
     { title:"Manger", items:[
       { t:"Déjeuner rue Đông Du", n:"Retour au quartier halal, c'est le dernier repas certifié avant Da Nang.", p:"~8 €", halal:true, m:"Dong Du street Saigon halal restaurant" },
       { t:"Bánh mì d'une échoppe de rue", n:"Version poulet ou œuf. Deux minutes d'attente, 25 000 VND, et c'est meilleur que dans n'importe quel restaurant.", p:"~25 000 VND", halal:"option" }
+    ,
+      { t:"Cơm chay avant de refaire le sac", n:"Dernier repas à trois euros pour deux avant les villes du centre, où l'offre végétarienne bon marché est un peu moins dense.", p:"~40 000 VND pour deux", halal:true, m:"quan com chay Quan 1 Ho Chi Minh" }
     ]},
     { title:"Bonus", items:[
       { t:"Bitexco Skydeck ou le bar du 52ᵉ", n:"Vue à 360° sur la ville et le fleuve. Le bar du Landmark 81 revient au même prix qu'un billet de pont d'observation, avec un fauteuil en plus.", p:"~10 €", m:"Bitexco Financial Tower Saigon Skydeck", rain:true }
@@ -423,6 +443,8 @@ const TRIP = [
       why:"Piscine sur le toit face à la rivière, balcons donnant sur le pont, marché Hàn en bas. La piscine au crépuscule avec les ponts illuminés est le cliché de la ville." },
     eco:{ name:"Sun River Hotel", addr:"132-136 Bạch Đằng", price:"30–45 €",
       why:"Simple mais bien placé, petit-déjeuner avec vue sur le pont du Dragon. Largement suffisant pour une nuit dont l'essentiel se passe dehors." },
+    budget:{ name:"Rest Hotel & Apartment Riverside", addr:"centre de Đà Nẵng, côté rivière", price:"20–25 €",
+      why:"Deux étoiles et demie côté rivière, donc à pied du pont du Dragon — ce qui est le seul critère qui compte pour cette nuit-là. Repli : les adresses A25 de Đà Nẵng. À ce prix tu n'auras pas le balcon face au dragon, mais la promenade est à deux minutes et c'est de là qu'on regarde." },
     secret:{ name:"Cozy Danang Boutique Hotel", addr:"37 Cô Giang", price:"50–65 €",
       why:"4,8/5, le mieux noté du secteur. Transfert aéroport gratuit, ce qui tombe bien en arrivant de Saigon. Au pied du pont sans la vue frontale — mais tu seras sur la promenade, pas au balcon." }
   },
@@ -441,6 +463,8 @@ const TRIP = [
     { title:"Manger", items:[
       { t:"Dîner halal dans Hải Châu vers 19 h", n:"Dernière ville du centre avec de vraies options halal. Mange tôt pour être sur la promenade à 20 h 15.", p:"~8 €", halal:true, urgent:true, m:"halal restaurant Hai Chau Da Nang" },
       { t:"Faire des réserves pour Ba Na et Hoi An", n:"Rien de halal au sommet de Ba Na, et l'offre est mince à Hoi An hors du restaurant de la mosquée. Achète pour deux jours pendant que tu es à Da Nang.", halal:true, urgent:true }
+    ,
+      { t:"Mì Quảng chay", n:"Le plat emblématique de Đà Nẵng en version végétarienne : nouilles jaunes, très peu de bouillon, cacahuètes, galette de riz grillée. Trois fois moins cher qu'un dîner assis dans Hải Châu.", p:"~35 000 VND", halal:true, m:"mi Quang chay Da Nang" }
     ]},
     { title:"Bonus", items:[
       { t:"Statue Cá Chép Hóa Rồng", n:"La carpe qui se transforme en dragon, illuminée, à deux minutes à pied sur le quai est. Presque tout le monde la rate en repartant.", m:"Ca Chep Hoa Rong carp dragon statue Da Nang" },
@@ -476,6 +500,8 @@ const TRIP = [
       why:"4,8/5. Piscine, deux minutes à pied d'une belle portion de plage, vélos prêtés, à l'écart du bruit tout en restant dans An Bàng. Combo plage et vieille ville à vélo." },
     eco:{ name:"An Bang Beach Hai An Villa", addr:"36 Ông Ích Đường", price:"30–45 €",
       why:"4,8/5 sur une trentaine d'avis. Familial, chambres grandes et nettes, vélos offerts, marché matinal au bout de la rue, plage à 5 min. 10 min de la vieille ville en Grab." },
+    budget:{ name:"Hôtel 2 étoiles hors du centre piéton", addr:"axe Cửa Đại ou An Bàng", price:"15–25 €",
+      why:"C'est la ville où je te mets le plus en garde : sous 25 €, Hoi An bascule massivement en guesthouses et homestays, exactement ce que tu ne veux pas. Filtre donc explicitement sur « Type d'hébergement : Hôtel » et note ≥ 8,5, sur l'axe Cửa Đại entre la vieille ville et la plage. Un nom revenait dans les listes : Yzistel Hoi An — vérifie avant de réserver que c'est bien un hôtel avec chambres privées, le nom prête à confusion." },
     secret:{ name:"Villa De Campagne Hoi An", addr:"270/2 Cửa Đại", price:"40–60 €",
       why:"Six chambres seulement. Rizières autour, bassin à carpes koï, à mi-chemin exact entre la vieille ville et la plage. Les levers et couchers de soleil sur les rizières reviennent dans presque tous les avis. Le secret le mieux gardé de la liste." }
   },
@@ -493,6 +519,8 @@ const TRIP = [
     { title:"Manger", items:[
       { t:"Monter avec de quoi grignoter", n:"Rien de halal au sommet, les buffets sont mixtes et il n'y a aucune alternative sur place. Les réserves faites à Da Nang la veille servent ici.", halal:true, urgent:true },
       { t:"Mosque Restaurant Hoi An", n:"En face de la mosquée cham, halal certifié, cuisine viet et malaise. C'est l'adresse de référence des trois jours à Hoi An.", p:"~8 €", halal:true, m:"Mosque Restaurant Hoi An Nguyen Thai Hoc" }
+    ,
+      { t:"Bánh mì à emporter pour le sommet", n:"Deux bánh mì à l'œuf achetés en bas coûtent 50 000 VND. Au sommet de Ba Na, les mêmes calories dans un buffet mixte que tu ne pourras de toute façon pas manger en coûteraient dix fois plus.", p:"~50 000 VND pour deux", halal:"option", urgent:true }
     ]},
     { title:"Bonus", items:[
       { t:"Vieille ville aux lanternes en fin de soirée", n:"Le billet combiné donne accès à cinq sites au choix. Mais l'essentiel — les lanternes, le pont japonais de l'extérieur, les quais — est gratuit et se fait à pied.", p:"120 000 VND le combiné", m:"Hoi An Ancient Town" }
@@ -516,6 +544,8 @@ const TRIP = [
     { title:"Manger", items:[
       { t:"Mosque Restaurant Hoi An", n:"Le retour de la valeur sûre. Le cari de poulet et le riz biryani sont les meilleurs plats de la carte.", p:"~8 €", halal:true, m:"Mosque Restaurant Hoi An" },
       { t:"Bánh mì Phượng", n:"Rendu célèbre par Anthony Bourdain. Version poulet ou œuf possible, à demander explicitement. La file avance vite.", p:"~1,50 €", halal:"option", m:"Banh Mi Phuong Hoi An" }
+    ,
+      { t:"Cơm chay de Hội An", n:"Plusieurs adresses chay autour du marché et de la rue Trần Cao Vân, hors du circuit piéton payant. Un repas complet pour deux à moins de trois euros, à cent mètres des restaurants à douze.", p:"~45 000 VND pour deux", halal:true, m:"com chay Hoi An" }
     ]},
     { title:"Bonus", items:[
       { t:"Reaching Out Tea House", n:"Salon de thé tenu par des employés sourds et muets. On commande avec des jetons de bois, et le silence de la salle au milieu de la vieille ville est saisissant.", m:"Reaching Out Tea House Tran Phu Hoi An", rain:true },
@@ -541,6 +571,8 @@ const TRIP = [
     { title:"Manger", items:[
       { t:"Streets Restaurant Café", n:"ONG qui forme des jeunes en difficulté. Le cao lầu version poulet y est bon et la cause est réelle.", p:"~8 €", halal:"option", m:"Streets Restaurant Le Loi Hoi An", rain:true },
       { t:"Hoi An Roastery", n:"Café vietnamien sérieux, plusieurs adresses dans la vieille ville. Prends un cà phê sữa đá, glacé et sucré au lait concentré.", p:"~2 €", halal:true, m:"Hoi An Roastery" }
+    ,
+      { t:"Chè et xôi au marché", n:"Le dessert-repas local : chè à 15 000 — gelées, haricots, lait de coco — et xôi, le riz gluant, à 20 000. De quoi tenir l'après-midi pour un euro à deux, et c'est bon.", p:"~35 000 VND pour deux", halal:true, m:"Hoi An Central Market" }
     ]},
     { title:"Bonus", items:[
       { t:"Marché central de Hoi An", n:"Lanternes pliables — le meilleur cadeau de retour, ça se met à plat dans la valise —, épices, café. Marchande de moitié, sans agressivité.", m:"Hoi An Central Market", rain:true },
@@ -557,6 +589,8 @@ const TRIP = [
   hotels:{
     insta:{ name:"Hue Riverside Boutique Resort & Spa", addr:"588 Bùi Thị Xuân", price:"50–70 €",
       why:"Verger de pomelos de 4 hectares au bord de la rivière, très grande piscine, vélos gratuits. Le cadre est superbe. Réserve sérieuse : note 4,1 et plusieurs avis récents décrivent un entretien en baisse et des photos en ligne datées. Vérifie les avis du mois avant de confirmer." },
+    budget:{ name:"Hong Thien Ruby Hotel", addr:"centre de Huế, rive sud", price:"15–20 €",
+      why:"Note autour de 9,4/10 pour un tarif qui descend sous les 20 €. Huế est la ville la moins chère du parcours : c'est ici que le petit budget passe le mieux, sans concession réelle. Repli : Jade Hotel, trois étoiles autour de 20 €." },
     eco:{ name:"Hue Riverside Villa", addr:"16 Kiệt 7 Nguyễn Công Trứ", price:"40–55 €", both:true,
       why:"4,8/5. Petit hôtel directement sur la rive, sur un chemin piéton donc sans circulation, petite piscine, chambres récentes avec balcon. Central mais au calme. À ce prix, il coche à la fois la case économique et la case pépite." }
   },
@@ -574,6 +608,8 @@ const TRIP = [
     { title:"Manger", items:[
       { t:"Bún bò Huế, dans sa ville d'origine", n:"Soupe de bœuf au citronnelle, bien plus relevée que le phở. Attention : la recette traditionnelle contient souvent du sang cuit et du jarret de porc. Demande bò không heo et vérifie le bol.", p:"~2 €", halal:"option", m:"bun bo Hue restaurant Hue" },
       { t:"Restaurant végétarien près de la pagode", n:"Hué est la capitale de la cuisine végétarienne bouddhiste du pays : des dizaines d'adresses chay, entièrement sans viande, donc sans problème.", p:"~5 €", halal:"option", m:"quan chay vegetarian restaurant Hue", rain:true }
+    ,
+      { t:"Cơm chay de Huế", n:"Huế est la capitale de la cuisine végétarienne bouddhiste du pays : des dizaines d'adresses chay, souvent tenues par des pagodes, à 25 000 VND le plateau complet. Le meilleur rapport qualité-prix de tout le voyage.", p:"~50 000 VND pour deux", halal:true, m:"com chay Hue" }
     ]},
     { title:"Bonus", items:[
       { t:"Pont Trường Tiền illuminé le soir", n:"Le pont Eiffel de Hué change de couleur toute la nuit. Vue depuis la rive sud, à cinq minutes des hôtels.", m:"Truong Tien Bridge Hue" }
@@ -598,6 +634,7 @@ const TRIP = [
     ]},
     { title:"Provisions pour 13 h de train", items:[
       { t:"Rien de halal à bord", n:"Le chariot vend surtout des nouilles instantanées et des œufs durs. Tout ce que vous mangerez cette nuit, vous devez le monter avec vous.", halal:true, urgent:true },
+      { t:"Provisions du train au marché Đông Ba", n:"Le grand marché de Huế, à dix minutes de la gare, et l'option la moins chère de loin. Pain, fruits, dattes, fruits secs, nouilles végétariennes et l'eau : les treize heures de train se ravitaillent ici pour environ 150 000 VND à deux, contre le triple dans une supérette.", p:"~150 000 VND pour deux", halal:true, urgent:true, m:"Cho Dong Ba Hue" },
       { t:"Fruits, pain, dattes, fruits secs, nouilles végétariennes", urgent:true },
       { t:"Deux litres d'eau par personne", n:"La climatisation des voitures couchettes déshydrate plus qu'on ne croit.", urgent:true },
       { t:"Kit de nuit : bouchons, masque, lingettes, papier toilette, tongs", n:"Les WC sont en bout de voiture, le sol est mouillé, et il n'y a jamais de papier après minuit.", urgent:true },
@@ -627,6 +664,8 @@ const TRIP = [
     { title:"Manger", items:[
       { t:"Tamarind Café", n:"Cuisine végétarienne et fusion, la valeur sûre sans question à poser. Réserve : un samedi de fête, la salle est petite.", p:"~10 €", halal:true, m:"Tamarind Cafe Ma May Hanoi", rain:true },
       { t:"Quán Ăn Ngon", n:"Cuisine régionale servie dans une cour à l'ancienne, chaque stand une spécialité. Demande sans porc, on te réorientera sans difficulté.", p:"~12 €", halal:"option", m:"Quan An Ngon Phan Boi Chau Hanoi" }
+    ,
+      { t:"Xôi ou bún chay du matin", n:"À la descente du train, avant même l'hôtel. Le riz gluant se vend au coin des rues dès 6 h, dans une feuille de bananier, pour 20 000 VND. Meilleur petit-déjeuner que celui de n'importe quel hôtel.", p:"~40 000 VND pour deux", halal:true, m:"xoi street food Old Quarter Hanoi" }
     ]},
     { title:"Bonus", items:[
       { t:"Ruelle Bảo Khánh", n:"Parallèle au lac, pleine de cafés à étage, et curieusement calme même un jour de foule.", m:"Bao Khanh street Hanoi", rain:true },
@@ -651,6 +690,8 @@ const TRIP = [
     ]},
     { title:"Manger", items:[
       { t:"Dernier bún ou dernier egg coffee", n:"Café Giảng ouvre à 7 h. C'est la meilleure dernière image du voyage, et ça coûte moins de deux euros.", p:"~1,50 €", halal:true, m:"Cafe Giang Hanoi" }
+    ,
+      { t:"Bánh mì trứng avant l'aéroport", n:"Deux bánh mì à l'œuf et deux cafés glacés : 60 000 VND. Garde le reste des dongs, tu ne les rechangeras pas correctement en Europe.", p:"~60 000 VND pour deux", halal:"option" }
     ]}
   ]
 }
@@ -992,9 +1033,10 @@ function renderIntensity(lv){
 
 function renderHotels(d){
   const gammes = [
-    ["insta","📸 Instagrammable","g-insta"],
+    ["budget","💸 Petit budget ~20 €","g-budget"],
     ["eco","💰 Économique mais sympa","g-eco"],
-    ["secret","🔑 Secret bien gardé","g-secret"]
+    ["secret","🔑 Secret bien gardé","g-secret"],
+    ["insta","📸 Instagrammable","g-insta"]
   ];
   let html = '<div class="section"><div class="section-header"><span class="section-icon">🏨</span>'
     + '<span class="section-title">Où dormir · ' + esc(d.hotelsCity) + '</span>'
@@ -1032,8 +1074,10 @@ function renderHotels(d){
     const k = itemKey(d.n, d.hotelTodo.t);
     if (passDone(k)) html += renderItem(d.hotelTodo, k);
   }
+  if (d.hotelWarn)  html += '<div class="hotel-note note-warn">⚠️ ' + esc(d.hotelWarn) + '</div>';
   if (d.hotelSafe)  html += '<div class="hotel-note note-safe">' + esc(d.hotelSafe) + '</div>';
   if (d.hotelAvoid) html += '<div class="hotel-note note-avoid">' + esc(d.hotelAvoid) + '</div>';
+  html += '<div class="hotel-note note-src">💸 La gamme petit budget a été ajoutée le 17/08 à partir d\'une recherche en ligne, pas de la sélection d\'origine : elle est moins vérifiée que les trois autres. Avant de réserver, contrôle trois choses — le type est bien « hôtel » et pas homestay ou guesthouse, la note est ≥ 8, et les avis du mois en cours ne parlent pas de moisissure. À ce niveau de prix, c\'est là que ça se joue.</div>';
   return html + '</div>';
 }
 
