@@ -10,7 +10,7 @@
 /* Bumper cette version à chaque modification du contenu de l'app : c'est ce
    qui fait détecter la nouvelle version au navigateur et afficher la barre
    « Recharger » à l'utilisateur. */
-const CACHE = "vietnam-13j-v5";
+const CACHE = "vietnam-13j-v6";
 
 const ASSETS = [
   "./",

@@ -288,6 +288,15 @@ const TRIP = [
     ,
       { t:"Cơm chay du vieux quartier", n:"La gargote végétarienne bouddhiste est la solution pas chère et sans risque au Vietnam : tout est sans viande, donc aucune question à poser sur le porc. On désigne trois plats du doigt, on paie au poids. Cherche une enseigne « quán chay » ou « cơm chay ».", p:"~40 000 VND pour deux", halal:true, m:"quan com chay Hoan Kiem Ha Noi" }
     ]},
+    { title:"Acheter", items:[
+      { t:"Rue Hàng Bạc — argenterie depuis le 13ᵉ siècle", n:"La rue des orfèvres, et toujours en activité. Filigrane traditionnel, chaînes, bagues. Compare trois boutiques avant d'acheter : pour la même pièce, l'écart de prix entre le début et la fin de la rue est régulièrement du simple au double.", m:"Hang Bac street silver Hanoi" },
+      { t:"Rue Hà Trung — or et change", n:"La rue des tiệm vàng, les boutiques d'or. Double intérêt : c'est là qu'on achète l'or au poids, et c'est aussi là que les euros en espèces se changent au meilleur taux de la ville, nettement mieux qu'en banque ou à l'hôtel. Compte les billets devant le comptoir avant de partir.", m:"Ha Trung street gold exchange Hanoi" },
+      { t:"PNJ — or certifié, prix fixes", n:"La grande chaîne nationale. Or 18 et 24 carats, poinçon, facture, prix au poids du jour affiché au mur. Aucun marchandage, aucune mauvaise surprise : c'est la façon sûre d'acheter de l'or au Vietnam quand on n'y connaît rien.", m:"PNJ jewelry Hang Trong Hanoi" },
+      { t:"Hồng Phúc Watch — montres vintage, rue Hàng Bông", n:"Seiko et Citizen d'occasion, dont du japonais domestique qu'on ne voit pas en Europe. Demande à ouvrir le fond pour voir le mouvement et les marquages avant de discuter le prix.", m:"Hang Bong street watch shop Hanoi" },
+      { t:"Hải Triều — concessionnaire officiel", n:"Seiko, Citizen, Casio neuves avec garantie internationale. Prix fixes affichés. Si tu veux du neuf sans risque, c'est ici et nulle part ailleurs.", m:"Hai Trieu Watch Dinh Tien Hoang Hanoi" },
+      { t:"Metiseko — soie et coton bio", n:"Marque franco-vietnamienne, imprimés dessinés maison, fabriqué au Vietnam. Le meilleur rapport qualité-prix en cadeau qui ne fait pas souvenir d'aéroport.", p:"30–100 €", m:"Metiseko Hang Gai Hanoi" },
+      { t:"Ginkgo — t-shirts à motifs vietnamiens", n:"Coton épais, sérigraphies originales (calligraphie, scènes de Hanoi). Aucune contrefaçon, des dessins maison.", p:"15–25 €", m:"Ginkgo Concept Store Hang Gai Hanoi" }
+    ]},
     { title:"Bonus", items:[
       { t:"Musée d'ethnographie du Vietnam", n:"Le meilleur musée du pays et entièrement couvert : c'est le repli pluie de la journée. Maisons traditionnelles grandeur nature dans le jardin.", p:"40 000 VND", m:"Vietnam Museum of Ethnology Hanoi", rain:true },
       { t:"Prison de Hỏa Lò", n:"Prison coloniale puis camp pour pilotes américains, le « Hanoi Hilton ». Une heure, poignant, entièrement à l'intérieur.", p:"50 000 VND", m:"Hoa Lo Prison Hanoi", rain:true },
@@ -410,13 +419,6 @@ const TRIP = [
   planBp:"Vol du 23 annulé → il y a une dizaine de rotations quotidiennes vers Da Nang. Si tu perds le 23 entier, tu perds le pont du Dragon : dans ce cas seulement, reporte-le au vendredi 28 en modifiant le train de nuit pour le lendemain. C'est le seul rattrapage possible, le spectacle ne joue que vendredi, samedi et dimanche.",
   groups:[
     { title:"Faire", items:[
-      { t:"Marché Tân Định + église rose", n:"Vrai marché de quartier, textile au premier étage, et l'église rose bonbon juste à côté. Cent fois plus authentique que Bến Thành, et sans le harcèlement.", m:"Tan Dinh Market Ho Chi Minh City", rain:true },
-      { t:"L'Usine, concept-store", n:"Café et boutique dans un immeuble colonial. Sélection de créateurs vietnamiens : vêtements, sacs, papeterie. Aucune contrefaçon, prix affichés.", p:"30–150 €", m:"L'Usine Dong Khoi Saigon", rain:true },
-      { t:"Catherine Denoual Maison", n:"Linge et textiles brodés main au Vietnam par une maison française installée à Saigon. C'est cher et c'est justifié — le genre de chose qui dure vingt ans.", p:"80–300 €", m:"Catherine Denoual Maison Dong Khoi Saigon" },
-      { t:"Saigon Kitsch", n:"T-shirts et accessoires à motifs Saigon, dessinés sur place. Abordable, drôle, et ce sont de bons cadeaux de retour.", p:"10–30 €", m:"Saigon Kitsch Ton That Thiep" },
-      { t:"Hai Trieu Watch, showroom du district 10", n:"Le plus gros stock Seiko du pays, concessionnaire officiel, prix fixes et garantie internationale. Pas de marchandage, pas de doute sur l'authenticité.", m:"Hai Trieu Watch 3 Thang 2 District 10 Saigon" },
-      { t:"PNJ, or et argent certifiés", n:"Chaîne nationale, or 18 et 24 carats avec certificat, prix au poids affiché du jour. C'est la façon sûre d'acheter de l'or au Vietnam.", m:"PNJ jewelry store Saigon" },
-      { t:"Saigon Square : à éviter", n:"Réputé pour la contrefaçon de marques de sport. Rien à y faire si on ne veut pas de faux. Saigon Centre et Vincom, à deux rues, vendent les vraies.", m:"Saigon Centre Le Loi Saigon" },
       { t:"Refaire le sac pour le vol du lendemain", n:"Vol tôt le 23, et la journée du 24 démarre à 5 h 45. Prépare dès ce soir un petit sac « Ba Na » : couche légère, snacks, batterie, QR des billets." }
     ]},
     { title:"Manger", items:[
@@ -424,6 +426,18 @@ const TRIP = [
       { t:"Bánh mì d'une échoppe de rue", n:"Version poulet ou œuf. Deux minutes d'attente, 25 000 VND, et c'est meilleur que dans n'importe quel restaurant.", p:"~25 000 VND", halal:"option" }
     ,
       { t:"Cơm chay avant de refaire le sac", n:"Dernier repas à trois euros pour deux avant les villes du centre, où l'offre végétarienne bon marché est un peu moins dense.", p:"~40 000 VND pour deux", halal:true, m:"quan com chay Quan 1 Ho Chi Minh" }
+    ]},
+    { title:"Acheter", items:[
+      { t:"Hải Triều — le plus gros stock Seiko du pays", n:"Le showroom du district 10 est la référence nationale. Concessionnaire officiel, prix fixes, garantie internationale. C'est ici qu'on achète une montre neuve sans se poser de question.", m:"Hai Trieu Watch 3 Thang 2 District 10 Saigon" },
+      { t:"Rue Lê Công Kiều — antiquaires et montres anciennes", n:"La rue des brocanteurs, à deux pas du marché Bến Thành. Beaucoup de bricoles, mais de vraies pièces se trouvent : montres mécaniques, briquets Zippo de la guerre, laques. Il faut fouiller et savoir dire non.", m:"Le Cong Kieu antique street District 1 Saigon" },
+      { t:"PNJ et SJC — or au poids", n:"Les deux grandes maisons. L'or se vend au poids en chỉ (3,75 g) au cours du jour affiché, plus une petite façon. C'est d'une transparence qu'on ne connaît pas en Europe. ⚠️ Le « 18 carats » vietnamien titre souvent 610 millièmes et non 750 : demande le poinçon et fais-le écrire sur la facture.", m:"SJC gold Nguyen Hue District 1 Saigon" },
+      { t:"L'Usine — créateurs vietnamiens", n:"Concept-store dans un immeuble colonial, café à l'étage. Sélection pointue de marques locales : vêtements, sacs, papeterie. Prix affichés, zéro contrefaçon.", p:"30–150 €", m:"L'Usine Dong Khoi Saigon" },
+      { t:"Catherine Denoual Maison — broderie main", n:"Maison française installée à Saigon, linge et textiles brodés à la main au Vietnam. C'est cher et c'est justifié : c'est le genre de pièce qui dure vingt ans.", p:"80–300 €", m:"Catherine Denoual Maison Dong Khoi Saigon" },
+      { t:"Saigon Kitsch — cadeaux de retour", n:"T-shirts, tote bags, carnets à motifs Saigon dessinés sur place. Abordable, drôle, et ça règle huit cadeaux d'un coup.", p:"10–30 €", m:"Saigon Kitsch Ton That Thiep Saigon" },
+      { t:"Saigon Square — le marché des répliques", n:"C'est ici que se trouvent les copies de grandes marques : sport, maroquinerie, lunettes. Deux étages, des centaines d'échoppes. La qualité va du carton au « super fake » très convaincant, et le prix suit. Commence à 30 % du prix annoncé, souris, sois prêt à partir : c'est le seul levier qui marche.", m:"Saigon Square shopping mall District 1" },
+      { t:"Marché Bến Thành — répliques et souvenirs", n:"Même famille que Saigon Square, en plus touristique et plus insistant. Les prix de départ y sont deux à trois fois plus élevés. À faire seulement si Saigon Square n'a pas eu ce que tu cherchais.", m:"Ben Thanh Market Saigon" },
+      { t:"⚠️ Répliques : le vrai risque est au retour, pas ici", n:"Acheter une copie au Vietnam ne te posera aucun problème sur place, c'est un commerce ouvert et toléré. Le problème est à l'arrivée en Belgique : les douanes de l'UE peuvent saisir et détruire les contrefaçons trouvées dans les bagages, y compris pour un usage strictement personnel, et la destruction est à ta charge. Le risque est faible sur une pièce ou deux dans une valise, réel sur dix exemplaires du même sac qui ressemblent à de la revente. Ne mets pas de logo contrefait dans un bagage cabine que tu présenteras au contrôle.", urgent:true },
+      { t:"Marché Tân Định + église rose", n:"Vrai marché de quartier, textile au premier étage, et l'église rose bonbon juste à côté. Cent fois plus authentique que Bến Thành, et sans le harcèlement.", m:"Tan Dinh Market Ho Chi Minh City", rain:true }
     ]},
     { title:"Bonus", items:[
       { t:"Bitexco Skydeck ou le bar du 52ᵉ", n:"Vue à 360° sur la ville et le fleuve. Le bar du Landmark 81 revient au même prix qu'un billet de pont d'observation, avec un fauteuil en plus.", p:"~10 €", m:"Bitexco Financial Tower Saigon Skydeck", rain:true }
@@ -574,6 +588,15 @@ const TRIP = [
     ,
       { t:"Chè et xôi au marché", n:"Le dessert-repas local : chè à 15 000 — gelées, haricots, lait de coco — et xôi, le riz gluant, à 20 000. De quoi tenir l'après-midi pour un euro à deux, et c'est bon.", p:"~35 000 VND pour deux", halal:true, m:"Hoi An Central Market" }
     ]},
+    { title:"Acheter", items:[
+      { t:"Faire copier un modèle chez un tailleur", n:"C'est la vraie réponse à l'envie de « réplique », et elle est parfaitement légale : tu montres la photo d'une veste, d'un manteau ou d'une robe, ils la refont à tes mesures en 24 à 48 h, sans logo. Le résultat est à toi, à ta taille, et personne ne le saisira à la douane. Compte 24 h de plus pour une retouche : ne lance rien après le 26 au matin.", p:"60–250 €", urgent:true, m:"tailor shop Hoi An Le Loi" },
+      { t:"Yaly Couture — le haut du panier", n:"La référence de Hoi An. Tissus italiens, deux essayages, finitions sérieuses. C'est le plus cher de la ville et le moins risqué.", p:"150–400 €", m:"Yaly Couture Hoi An" },
+      { t:"BeBe Tailor — l'alternative", n:"Qualité souvent équivalente à Yaly pour 20 à 30 % de moins. Fais faire les deux devis, la différence surprend.", p:"100–350 €", m:"BeBe Tailor Hoang Dieu Hoi An" },
+      { t:"A Dong Silk — lin et soie", n:"Le meilleur pour les pièces légères : robes en lin, chemises. Le lin est ce qui se porte le mieux dans l'humidité d'ici.", p:"50–200 €", m:"A Dong Silk Le Loi Hoi An" },
+      { t:"Metiseko Hoi An", n:"La boutique signature de la marque, dans la vieille ville. Soie naturelle et coton bio, motifs exclusifs.", p:"30–150 €", m:"Metiseko Tran Phu Hoi An" },
+      { t:"Perles de culture vietnamiennes", n:"Élevées à Hạ Long et Phú Quốc. Exige un certificat d'origine et méfie-toi du mot « Akoya » employé à tort. Test simple : frotte la perle contre une dent, une vraie perle accroche légèrement, une fausse glisse.", m:"pearl shop Hoi An ancient town" },
+      { t:"Comment reconnaître la vraie soie", n:"Elle est tiède au toucher et non froide, elle glisse sans être brillante comme du plastique, et froissée dans la main elle ne fait presque aucun bruit. Le test au feu — un fil brûlé sent la corne, pas le plastique — se demande sans gêne, les bons tailleurs le font eux-mêmes." }
+    ]},
     { title:"Bonus", items:[
       { t:"Marché central de Hoi An", n:"Lanternes pliables — le meilleur cadeau de retour, ça se met à plat dans la valise —, épices, café. Marchande de moitié, sans agressivité.", m:"Hoi An Central Market", rain:true },
       { t:"Coucher de soleil à vélo dans Trà Quế", n:"Village maraîcher à dix minutes, lumière dorée sur les planches d'herbes. Presque personne à cette heure.", m:"Tra Que Vegetable Village Hoi An" }
@@ -682,9 +705,6 @@ const TRIP = [
   planBp:"Trafic bloqué vers Nội Bài un dimanche de fête nationale → pars 4 h avant, pas 3. Le bus express 86 emprunte parfois des voies moins engorgées qu'une voiture, et il part du bord du lac. En cas de vol raté, les compagnies remettent sur le vol suivant contre pénalité : va au comptoir plutôt que d'appeler.",
   groups:[
     { title:"Faire", items:[
-      { t:"Marché Đồng Xuân", n:"Le plus grand marché couvert de la ville, donc à l'abri. Derniers achats en vrac : café, épices, thé, tissus.", m:"Dong Xuan Market Hanoi", rain:true },
-      { t:"Rue Hàng Bạc, dernière chance argenterie", n:"Orfèvres depuis le 13ᵉ siècle, filigrane traditionnel. Compare trois boutiques avant d'acheter, les écarts de prix sont énormes pour la même pièce.", m:"Hang Bac street Hanoi silver" },
-      { t:"Rue Hàng Gai, soie et Tân Mỹ Design", n:"Foulards, peintures sur soie, sacs. Tân Mỹ Design est le haut de gamme de la rue, et c'est là que la qualité se voit.", m:"Tan My Design Hang Gai Hanoi" },
       { t:"Partir 4 h avant le vol", n:"Un dimanche de fête nationale, la route de Nội Bài peut doubler. Quatre heures, ce n'est pas de la prudence excessive.", urgent:true, m:"Noi Bai International Airport Hanoi" },
       { t:"Garder 200 000 VND en poche", n:"Pour le café de l'aéroport et l'eau après les contrôles. Le reste se change ou se garde en souvenir : les billets vietnamiens ne se rechangent pas bien en Europe." }
     ]},
@@ -692,6 +712,13 @@ const TRIP = [
       { t:"Dernier bún ou dernier egg coffee", n:"Café Giảng ouvre à 7 h. C'est la meilleure dernière image du voyage, et ça coûte moins de deux euros.", p:"~1,50 €", halal:true, m:"Cafe Giang Hanoi" }
     ,
       { t:"Bánh mì trứng avant l'aéroport", n:"Deux bánh mì à l'œuf et deux cafés glacés : 60 000 VND. Garde le reste des dongs, tu ne les rechangeras pas correctement en Europe.", p:"~60 000 VND pour deux", halal:"option" }
+    ]},
+    { title:"Acheter", items:[
+      { t:"Marché Đồng Xuân — étages du textile", n:"Le plus grand marché couvert de la ville, donc à l'abri s'il pleut. Les étages supérieurs vendent du textile en gros, répliques comprises, à des prix nettement inférieurs à ceux du vieux quartier touristique. C'est le dernier créneau pour ça.", m:"Dong Xuan Market Hanoi", rain:true },
+      { t:"Rues Hàng Đào et Hàng Ngang", n:"L'axe commerçant qui remonte du lac vers Đồng Xuân. Vêtements, maroquinerie, copies de marques. Le soir du week-end la rue devient piétonne et se transforme en marché de nuit.", m:"Hang Dao street Hanoi" },
+      { t:"Rue Hàng Bạc — dernière chance argenterie", n:"Si tu n'as pas trouvé le premier jour. Tu as maintenant deux semaines de repères sur les prix, ça change complètement la négociation.", m:"Hang Bac street Hanoi" },
+      { t:"Tân Mỹ Design, rue Hàng Gai", n:"Le haut de gamme de la rue de la soie : foulards, linge brodé, sacs. C'est là que la différence de qualité se voit à l'œil nu par rapport aux boutiques voisines.", m:"Tan My Design Hang Gai Hanoi" },
+      { t:"Vérifier la valise avant de fermer", n:"Deux choses : les liquides et les pâtes — sauce de poisson, confitures — passent en soute dans un sac plastique fermé, et tout logo contrefait se met en soute, jamais en cabine.", urgent:true }
     ]}
   ]
 }
@@ -1129,7 +1156,7 @@ function renderDay(d){
       .filter(x => passFilter(x.it) && passDone(x.key));
     if (!visible.length) return;
     shown += visible.length;
-    const icons = { "Faire":"🎯", "Manger":"🍜", "Bonus":"💎", "Avant de dormir":"🌙", "Provisions pour 13 h de train":"🎒" };
+    const icons = { "Faire":"🎯", "Manger":"🍜", "Acheter":"🛍️", "Bonus":"💎", "Avant de dormir":"🌙", "Provisions pour 13 h de train":"🎒" };
     html += '<div class="section"><div class="section-header"><span class="section-icon">'
       + (icons[g.title] || "🎯") + '</span><span class="section-title">' + esc(g.title) + '</span>'
       + '<span class="section-count">' + visible.filter(x => state.checked[x.key]).length + '/' + (g.items||[]).length + '</span></div>'
@@ -1161,6 +1188,44 @@ function renderRef(){
   + VN_HUBS.map(h => '<div class="kv"><span class="kv-k">' + esc(h.fr) + '</span>'
       + drvBtn(h) + '</div>').join("")
   + '</div>'
+  + '<div class="ref" style="border-color:rgba(244,63,94,.35);background:rgba(244,63,94,.06)">'
+  + '<div class="ref-title" style="color:#fda4af">🛂 À vérifier avant de fermer la valise</div>'
+  + '<p><strong>Visa.</strong> La Belgique ne figure pas sur la liste des pays exemptés par le Vietnam — contrairement à la France, l\'Allemagne ou l\'Italie. Il faut donc un <strong>e-visa</strong> (90 jours, environ 25 $, obtenu sur evisa.gov.vn). Vérifie que tu l\'as, <strong>imprimé sur papier</strong> : la compagnie le demande à l\'embarquement et l\'immigration aussi. C\'est le seul point de cette liste qui peut te bloquer au comptoir.</p>'
+  + '<p><strong>Passeport valable 6 mois</strong> après la date d\'entrée, soit au-delà du 18 février 2027, et une page vierge.</p>'
+  + '<p><strong>Bagages des vols intérieurs.</strong> VietJet et Bamboo vendent des billets avec <strong>7 kg de cabine et rien en soute</strong>. La soute achetée à l\'aéroport coûte trois à quatre fois le prix d\'achat en ligne. Vérifie tes deux vols intérieurs ce soir, pas à Tân Sơn Nhất.</p>'
+  + '<p><strong>Terminaux.</strong> À Hanoi comme à Saigon, l\'international est au <strong>T2</strong> et le domestique au <strong>T1</strong>. Ce sont deux bâtiments séparés reliés par une navette gratuite : compte 15 minutes de plus le 19 et le 23.</p>'
+  + '<p><strong>Billets de train.</strong> Le nom et le numéro de passeport sur le billet DSVN doivent correspondre exactement au passeport. Un prénom inversé se règle au guichet, mais pas 5 minutes avant le départ.</p></div>'
+
+  + '<div class="ref"><div class="ref-title">🚨 Arnaques et pièges classiques</div>'
+  + '<p><strong>Les billets de 20 000 et 500 000.</strong> Les deux sont bleus, même format, même texture plastique. C\'est l\'erreur numéro un des voyageurs, et certains chauffeurs comptent dessus : tu paies avec un 500 000 en croyant donner 20 000. Repère-toi au <strong>nombre de zéros</strong>, jamais à la couleur, et sépare les gros billets dans une autre poche.</p>'
+  + '<p><strong>Le taxi de l\'aéroport.</strong> Ceux qui t\'abordent dans le hall sont à éviter systématiquement. Sors, prends la file officielle <strong>Mai Linh (vert)</strong> ou <strong>Vinasun (blanc et vert)</strong>, ou commande un Grab depuis le wifi de l\'aéroport. Le compteur doit tourner dès le départ.</p>'
+  + '<p><strong>Le rendu de monnaie.</strong> Recompte devant le vendeur, sans gêne : ça se fait, et personne ne le prend mal.</p>'
+  + '<p><strong>Le xe ôm freelance.</strong> Les motos-taxis qui hèlent dans la rue annoncent un prix et en réclament un autre à l\'arrivée. Grab affiche le prix avant, c\'est réglé.</p>'
+  + '<p><strong>Le cyclo à Hanoi.</strong> Négocié à 100 000, réclamé à 500 000 « parce que c\'était par personne et par heure ». Si tu en prends un, fais écrire le prix total sur ton téléphone et montre-le avant de monter.</p>'
+  + '<p><strong>« Le musée est fermé aujourd\'hui ».</strong> Dit par quelqu\'un devant l\'entrée, c\'est presque toujours faux, et suivi d\'une proposition de tour alternatif. Avance jusqu\'au guichet et vérifie toi-même.</p></div>'
+
+  + '<div class="ref"><div class="ref-title">🛵 Se déplacer comme un local</div>'
+  + '<p><strong>Traverser la rue.</strong> C\'est la vraie compétence à acquérir le premier jour. On avance <strong>lentement, régulièrement, sans jamais s\'arrêter et sans courir</strong> : les scooters calculent ta trajectoire et passent devant et derrière toi. S\'arrêter au milieu est la seule vraie erreur. Colle-toi à un local pour les deux premières traversées.</p>'
+  + '<p><strong>GrabBike plutôt que GrabCar.</strong> Environ un tiers du prix, et deux fois plus rapide aux heures de pointe. À deux et sur des courtes distances, deux GrabBike reviennent souvent moins cher qu\'une voiture. Le casque est fourni. Sous la pluie ou avec les valises, la voiture reste évidemment plus sage.</p>'
+  + '<p><strong>Le casque est obligatoire</strong> et la police arrête les touristes en scooter. Si tu loues à Hoi An : permis international mention A, casque attaché, et vérifie que ton assurance couvre le deux-roues — beaucoup excluent tout au-delà de 50 cm³.</p>'
+  + '<p><strong>Beaucoup de sites de province ferment 11 h 30 – 13 h 30.</strong> Cale les visites le matin tôt ou après 14 h, et mets le déjeuner dans ce créneau.</p>'
+  + '<p><strong>Pourboire.</strong> Pas d\'usage au restaurant ni en taxi. En revanche il se donne aux rameuses de barque, aux guides et aux porteurs : 20 000 à 50 000 VND, et c\'est apprécié.</p></div>'
+
+  + '<div class="ref"><div class="ref-title">💊 Santé, en août</div>'
+  + '<p><strong>La dengue, pas le paludisme.</strong> Août est le pic de la saison dans le delta et à Saigon, et le moustique tigre pique <strong>en pleine journée</strong>, pas seulement le soir. Le répulsif se met le matin, pas au coucher. C\'est le seul vrai risque sanitaire du voyage.</p>'
+  + '<p><strong>L\'eau et la glace.</strong> Jamais l\'eau du robinet. La glace, en revanche : les <strong>cylindres réguliers percés d\'un trou</strong> sortent d\'usine et sont sans danger, on en trouve partout en ville. Ce sont les glaçons irréguliers pilés à la main, en zone rurale, qui posent problème.</p>'
+  + '<p><strong>Les pharmacies</strong> sont excellentes, partout, et délivrent sans ordonnance pour presque tout. Le mot à retenir : <strong>oresol</strong>, les sachets de réhydratation orale. Trois euros, et c\'est ce qui règle 90 % des ennuis de voyage.</p>'
+  + '<p><strong>La climatisation.</strong> Passer de 34 °C à 18 °C dix fois par jour donne mal à la gorge à la moitié des voyageurs. Règle le split de la chambre sur 25 °C, pas sur 18.</p>'
+  + '<p><strong>Coup de chaleur au jour 7.</strong> Lever 5 h 45, montagne, transfert : c\'est la journée où ça arrive. Deux litres d\'eau par personne dans le sac, et de quoi saler.</p></div>'
+
+  + '<div class="ref"><div class="ref-title">🛍️ Acheter au Vietnam — les règles</div>'
+  + '<p><strong>L\'or se vend au poids.</strong> L\'unité est le <strong>chỉ</strong> (3,75 g), au cours du jour affiché au mur, plus une petite façon. C\'est d\'une transparence qu\'on ne connaît pas en Europe. Attention au piège : le « 18 carats » vietnamien titre souvent <strong>610 millièmes et non 750</strong>. Demande le poinçon, et fais écrire le titre sur la facture — elle sert aussi à la douane.</p>'
+  + '<p><strong>Les montres.</strong> Neuf, c\'est chez un concessionnaire officiel (Hải Triều) et nulle part ailleurs : prix fixe, garantie internationale. En vintage, fais ouvrir le fond de boîte, regarde les marquages du mouvement et le numéro de série. Un « Rolex » à 50 € est un faux, sans exception.</p>'
+  + '<p><strong>Le marchandage.</strong> Dans les marchés, le premier prix annoncé à un étranger vaut trois à quatre fois le prix réel. Ouvre à <strong>30 %</strong>, vise 40-50 %, souris tout du long, et sois prêt à partir — c\'est le seul vrai levier. En revanche on ne marchande <strong>jamais</strong> là où le prix est affiché, ni chez les vendeurs de rue de nourriture.</p>'
+  + '<p><strong>Les répliques.</strong> Sur place, aucun problème : c\'est un commerce ouvert et toléré. Le risque est <strong>au retour</strong> — les douanes de l\'UE peuvent saisir et détruire les contrefaçons trouvées en bagage, y compris pour usage personnel, et la destruction est à ta charge. Faible sur une pièce ou deux, réel sur dix exemplaires identiques qui ressemblent à de la revente. Mets-les en soute.</p>'
+  + '<p><strong>L\'alternative qui vaut mieux :</strong> à Hoi An, tu montres la photo d\'un modèle à un tailleur et il te le refait à tes mesures, sans logo, en 24 à 48 h. C\'est légal, c\'est à ta taille, et ça ne se fera jamais saisir.</p>'
+  + '<p><strong>Changer ses euros :</strong> les boutiques d\'or (<strong>tiệm vàng</strong>) donnent un meilleur taux que les banques et les hôtels. À Hanoi, c\'est la rue <strong>Hà Trung</strong>. Recompte au comptoir avant de sortir.</p></div>'
+
   + '<div class="ref"><div class="ref-title">🆘 Urgences</div>'
   + '<div class="kv"><span class="kv-k">Police</span><span class="kv-v">113</span></div>'
   + '<div class="kv"><span class="kv-k">Pompiers</span><span class="kv-v">114</span></div>'
